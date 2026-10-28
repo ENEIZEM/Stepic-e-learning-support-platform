@@ -92,6 +92,60 @@
     });
   }
 
+  function buildHeaderDropdowns() {
+    const triggers = Array.from(headerNav.querySelectorAll(":scope > button[data-section]"));
+    triggers.forEach((trigger) => {
+      const section = trigger.dataset.section;
+      const group = document.createElement("div");
+      group.className = "nav-group";
+      headerNav.insertBefore(group, trigger);
+      group.appendChild(trigger);
+      trigger.classList.add("nav-group-trigger");
+      trigger.setAttribute("aria-haspopup", "true");
+      trigger.setAttribute("aria-expanded", "false");
+
+      const caret = document.createElement("span");
+      caret.className = "nav-chevron";
+      caret.setAttribute("aria-hidden", "true");
+      trigger.appendChild(caret);
+
+      const dropdown = document.createElement("div");
+      dropdown.className = "nav-dropdown";
+      dropdown.setAttribute("role", "group");
+      dropdown.setAttribute("aria-label", "Страницы раздела");
+      pages.filter((page) => page.dataset.section === section).forEach((page) => {
+        const link = document.createElement("a");
+        link.className = "nav-dropdown-link";
+        link.href = "#" + page.id;
+        link.dataset.pageId = page.id;
+
+        const index = document.createElement("span");
+        index.className = "nav-dropdown-index";
+        index.textContent = page.id.replace("page-", "").replace("-", ".");
+        const label = document.createElement("span");
+        label.className = "nav-dropdown-label";
+        label.textContent = page.dataset.title;
+        link.append(index, label);
+
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          navigateTo(page.id);
+          trigger.setAttribute("aria-expanded", "false");
+          trigger.blur();
+        });
+        dropdown.appendChild(link);
+      });
+      group.appendChild(dropdown);
+
+      trigger.addEventListener("focus", () => trigger.setAttribute("aria-expanded", "true"));
+      group.addEventListener("mouseenter", () => trigger.setAttribute("aria-expanded", "true"));
+      group.addEventListener("mouseleave", () => trigger.setAttribute("aria-expanded", "false"));
+      group.addEventListener("focusout", (event) => {
+        if (!group.contains(event.relatedTarget)) trigger.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
   function renderPage(id) {
     const pageId = pageIds.has(id) ? id : "page-1-1";
     currentIndex = pages.findIndex((page) => page.id === pageId);
@@ -103,15 +157,21 @@
       page.setAttribute("aria-hidden", String(!active));
     });
 
-    headerCurrent.textContent = currentPage.dataset.title;
-    headerNav.querySelectorAll("[data-section]").forEach((button) => {
+    headerCurrent.textContent = currentPage.id === "page-1-1" ? "Обзор" : currentPage.dataset.title;
+    headerNav.querySelectorAll(".nav-group-trigger[data-section]").forEach((button) => {
       const active = button.dataset.section === currentPage.dataset.section;
       button.classList.toggle("is-active", active);
       if (active) button.setAttribute("aria-current", "page");
       else button.removeAttribute("aria-current");
     });
+    headerNav.querySelectorAll(".nav-dropdown-link").forEach((link) => {
+      const active = link.dataset.pageId === currentPage.id;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
 
-    pageFooter.hidden = currentPage.classList.contains("page-home");
+    pageFooter.hidden = false;
     prevButton.disabled = currentIndex === 0;
     nextButton.disabled = currentIndex === pages.length - 1;
     document.title = currentPage.dataset.title + " — Stepic";
@@ -173,11 +233,11 @@
         minWidth: 200,
         scale: 1,
         scaleMobile: 1,
-        color: 0xd5b8ff,
+        color: 0xe4d1ff,
         backgroundColor: 0x211d31,
-        points: 10,
-        maxDistance: 22,
-        spacing: 18,
+        points: 12,
+        maxDistance: 26,
+        spacing: 16,
         showDots: true
       });
     } catch (error) {
@@ -203,8 +263,9 @@
     if (entered) renderPage(getHashPage());
   });
 
+  buildHeaderDropdowns();
   headerNav.addEventListener("click", (event) => {
-    const button = event.target.closest("[data-section]");
+    const button = event.target.closest(".nav-group-trigger[data-section]");
     if (!button) return;
     const firstPage = pages.find((page) => page.dataset.section === button.dataset.section);
     if (firstPage) navigateTo(firstPage.id);
