@@ -607,3 +607,241 @@ button:disabled { cursor: not-allowed; opacity: .42; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+
+/* ── Stepic theme v3: warm graphite + muted violet ───────────────
+   Keep REMS geometry and hierarchy, but use an independent palette. */
+:root {
+  --ink: #292637;
+  --ink-soft: #565365;
+  --muted: #817d8c;
+  --line: #e7e4eb;
+  --surface: #ffffff;
+  --canvas: #fbfaf8;
+  --accent: #7660bc;
+  --accent-dark: #5d479f;
+  --accent-soft: #f0ecfa;
+  --navy: #211d31;
+  --navy-deep: #171322;
+  --shadow-nav: 0 12px 28px rgba(15, 23, 42, 0.18);
+  --radius-sm: .25rem;
+  --radius-md: .5rem;
+  --radius-lg: .75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+body { background: var(--canvas); }
+
+/* One source of truth for header geometry across every module.
+   Dimensions, radius, blur and shadow follow the REMS landing navbar. */
+.floating-header {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  z-index: 200;
+  width: calc(100% - 2rem);
+  max-width: 1540px;
+  min-height: 3.5rem;
+  margin: 0;
+  padding: .55rem 1.25rem;
+  gap: 1rem;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: var(--radius-2xl);
+  background: rgba(255, 255, 255, .7);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, .18);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .floating-header { background: rgba(255, 255, 255, .94); }
+}
+.brand {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+}
+.menu-trigger { border-radius: var(--radius-lg); }
+.header-nav button.is-active { background: var(--accent-soft); color: var(--accent-dark); }
+
+/* Hero restores the REMS two-column text + product preview composition. */
+.page-home.is-active { display: block; }
+.vanta-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--navy);
+  color: #fff;
+}
+.vanta-canvas { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.vanta-canvas canvas { display: block; width: 100%; height: 100%; }
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(22, 19, 36, .95) 0%, rgba(30, 26, 48, .86) 48%, rgba(30, 26, 48, .42) 100%),
+    linear-gradient(0deg, rgba(16, 13, 27, .18), transparent 58%);
+  pointer-events: none;
+}
+.hero-2col {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(32px, 4vw, 66px);
+  width: min(1240px, calc(100% - 48px));
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 6.5rem 0 2.25rem;
+}
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+}
+.hero-text h1 {
+  max-width: 600px;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  color: #fff;
+  font-size: clamp(2.35rem, 3.5vw, 3.25rem);
+  font-weight: 620;
+  line-height: 1.12;
+  letter-spacing: -.045em;
+  text-shadow: none;
+  text-wrap: balance;
+}
+.hero-subtitle {
+  max-width: 510px;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  color: rgba(255, 255, 255, .76);
+  font-size: 1.08rem;
+  font-weight: 400;
+  line-height: 1.7;
+  text-shadow: none;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  min-height: 48px;
+  padding: .85rem 1.2rem .85rem 1.35rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-lg);
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-size: .9rem;
+  font-weight: 650;
+  transition: background .16s ease, border-color .16s ease, transform .16s ease;
+}
+.hero-cta:hover { transform: translateY(-1px); border-color: #8b76d0; background: #8b76d0; }
+.hero-cta svg { width: 19px; height: 19px; }
+.hero-mockup {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem 0;
+}
+.mockup-window {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .32);
+  color: #292637;
+}
+.mockup-topbar { display: flex; align-items: center; gap: .45rem; min-height: 42px; padding: .55rem .8rem; background: #29243a; }
+.mockup-dot { width: 7px; height: 7px; border-radius: 50%; background: #746d82; }
+.mockup-dot:first-child { background: #e78b85; }
+.mockup-dot:nth-child(2) { background: #e7bd71; }
+.mockup-dot:nth-child(3) { background: #80b89a; }
+.mockup-address { flex: 1; min-width: 0; margin-left: .35rem; padding: .23rem .65rem; overflow: hidden; border-radius: 5px; background: rgba(255,255,255,.09); color: rgba(255,255,255,.59); font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.mockup-body { padding: 1.3rem 1.25rem 1rem; }
+.mockup-course-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.mockup-overline { margin: 0 0 .35rem; color: #827d8c; font-size: 9px; font-weight: 700; letter-spacing: .07em; }
+.mockup-course-top h2 { max-width: 320px; margin: 0; color: #292637; font-size: 21px; font-weight: 650; letter-spacing: -.045em; line-height: 1.25; }
+.mockup-course-icon { display: grid; width: 42px; height: 42px; flex: 0 0 42px; place-items: center; border-radius: 12px; background: #f0ecfa; color: #6b55b2; }
+.mockup-course-icon svg { width: 22px; height: 22px; }
+.mockup-progress-head { display: flex; justify-content: space-between; gap: 14px; margin-top: 24px; color: #817d8c; font-size: 11px; }
+.mockup-progress-head strong { color: #4b465a; font-weight: 600; }
+.mockup-progress { height: 5px; margin-top: 8px; overflow: hidden; border-radius: 10px; background: #efedf2; }
+.mockup-progress span { display: block; width: 37.5%; height: 100%; border-radius: inherit; background: #8068c7; }
+.mockup-lesson-list { display: grid; gap: 7px; margin-top: 17px; }
+.mockup-lesson { display: flex; align-items: center; gap: 11px; min-width: 0; padding: 10px 11px; border: 1px solid #eae7ef; border-radius: 10px; background: #fff; }
+.mockup-lesson.is-current { border-color: #cfc5ed; background: #faf8ff; }
+.mockup-status { display: grid; width: 28px; height: 28px; flex: 0 0 28px; place-items: center; border-radius: 8px; background: #f0edf5; color: #8b849e; }
+.mockup-status svg { width: 14px; height: 14px; }
+.mockup-lesson.is-complete .mockup-status { background: #e9f3eb; color: #4d8860; }
+.mockup-lesson.is-current .mockup-status { background: #e9e2fb; color: #6c53bd; }
+.mockup-lesson-copy { display: grid; flex: 1; min-width: 0; gap: 2px; }
+.mockup-lesson-copy strong { overflow: hidden; color: #373244; font-size: 11px; font-weight: 620; text-overflow: ellipsis; white-space: nowrap; }
+.mockup-lesson-copy small { overflow: hidden; color: #898596; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.mockup-lesson-state { flex: 0 0 auto; color: #66856c; font-size: 9px; }
+.mockup-lesson-arrow { color: #7760bc; font-size: 18px; }
+.mockup-lock { display: grid; width: 18px; flex: 0 0 18px; place-items: center; color: #9c97a8; }
+.mockup-lock svg { width: 15px; height: 15px; }
+.mockup-bottom-line { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; padding-top: 12px; border-top: 1px solid #eeeaf2; color: #9691a1; font-size: 9px; }
+
+/* Keep interactive states consistent with the new Stepic accent. */
+.sidebar-link.is-active, .sidebar-section-link.is-active { background: var(--accent-soft); color: var(--accent-dark); }
+.sidebar-link.is-active .sidebar-index { color: var(--accent-dark); }
+.section-kicker span:first-child { color: var(--accent-dark); }
+.progress-fill { background: var(--accent); }
+.answer-option.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--accent-dark); }
+.answer-option.selected .option-letter { border-color: var(--accent); background: var(--accent); }
+.result-score { color: var(--accent-dark); }
+
+@media (max-width: 1120px) {
+  .floating-header { width: calc(100% - 2rem); max-width: 1540px; gap: .7rem; }
+  .header-nav button { padding-inline: 9px; font-size: 12px; }
+  .hero-2col { gap: 32px; width: min(1120px, calc(100% - 40px)); }
+  .hero-text h1 { font-size: clamp(2.1rem, 3.7vw, 2.8rem); }
+  .mockup-body { padding: 1rem; }
+}
+@media (max-width: 900px) {
+  .header-nav button { padding-inline: 7px; font-size: 11px; }
+  .hero-2col { gap: 24px; }
+  .hero-text h1 { font-size: clamp(2rem, 4.2vw, 2.6rem); }
+  .mockup-course-top h2 { font-size: 18px; }
+  .mockup-lesson-state { display: none; }
+}
+@media (max-width: 760px) {
+  .floating-header { top: .625rem; width: calc(100% - 1.25rem); min-height: 3.5rem; padding: .45rem .7rem; border-radius: var(--radius-2xl); }
+  .header-nav { display: none; }
+  .header-divider { margin-right: auto; }
+  .header-current { display: inline; max-width: 42vw; }
+  .vanta-hero { min-height: 620px; }
+  .hero-2col { grid-template-columns: minmax(0, 1fr); align-content: center; gap: 24px; width: calc(100% - 40px); padding: 6rem 0 2rem; }
+  .hero-text h1 { max-width: 580px; font-size: clamp(2.35rem, 8.5vw, 3.5rem); }
+  .hero-subtitle { max-width: 520px; font-size: 1rem; }
+  .hero-mockup { display: none; }
+}
+@media (max-width: 420px) {
+  .vanta-hero { min-height: 600px; }
+  .hero-2col { width: calc(100% - 32px); }
+  .hero-text h1 { font-size: 2.4rem; }
+  .desktop-break { display: none; }
+}
