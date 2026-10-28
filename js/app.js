@@ -36,6 +36,15 @@
     return pageIds.has(id) ? id : "page-1-1";
   }
 
+  function getPageNumber(page) {
+    const match = page.id.match(/^page-(\d+)-(\d+)$/);
+    return match ? `${String(match[1]).padStart(2, "0")}.${match[2]}` : "";
+  }
+
+  function getSectionNumber(section) {
+    return String(section).padStart(2, "0");
+  }
+
   function makeButton(className, indexText, labelText, onClick, active) {
     const button = document.createElement("button");
     button.type = "button";
@@ -59,11 +68,18 @@
     const currentPage = pages[currentIndex];
     const currentSection = currentPage.dataset.section;
     const sectionPages = pages.filter((page) => page.dataset.section === currentSection);
-    sidebarSectionTitle.textContent = sectionNames[currentSection];
+    sidebarSectionTitle.replaceChildren();
+    const titleIndex = document.createElement("span");
+    titleIndex.className = "sidebar-title-index";
+    titleIndex.textContent = getSectionNumber(currentSection);
+    const titleLabel = document.createElement("span");
+    titleLabel.className = "sidebar-title-label";
+    titleLabel.textContent = sectionNames[currentSection];
+    sidebarSectionTitle.append(titleIndex, titleLabel);
     sidebarCurrent.replaceChildren();
 
     sectionPages.forEach((page) => {
-      const index = page.id.replace("page-", "").replace("-", ".");
+      const index = getPageNumber(page);
       sidebarCurrent.appendChild(makeButton(
         "sidebar-link",
         index,
@@ -121,7 +137,7 @@
 
         const index = document.createElement("span");
         index.className = "nav-dropdown-index";
-        index.textContent = page.id.replace("page-", "").replace("-", ".");
+        index.textContent = getPageNumber(page);
         const label = document.createElement("span");
         label.className = "nav-dropdown-label";
         label.textContent = page.dataset.title;
@@ -158,7 +174,16 @@
     });
 
     const isLanding = currentPage.id === "page-1-1";
-    headerCurrent.textContent = isLanding ? "" : currentPage.dataset.title;
+    headerCurrent.replaceChildren();
+    if (!isLanding) {
+      const number = document.createElement("span");
+      number.className = "header-current-index";
+      number.textContent = getPageNumber(currentPage);
+      const title = document.createElement("span");
+      title.className = "header-current-title";
+      title.textContent = currentPage.dataset.title;
+      headerCurrent.append(number, title);
+    }
     document.getElementById("site-header").classList.toggle("is-home", isLanding);
     headerNav.querySelectorAll(".nav-group-trigger[data-section]").forEach((button) => {
       const active = button.dataset.section === currentPage.dataset.section;
@@ -173,7 +198,7 @@
       else link.removeAttribute("aria-current");
     });
 
-    pageFooter.hidden = false;
+    pageFooter.hidden = isLanding;
     prevButton.disabled = currentIndex === 0;
     nextButton.disabled = currentIndex === pages.length - 1;
     document.title = currentPage.dataset.title + " — Stepic";

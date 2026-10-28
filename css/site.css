@@ -1353,3 +1353,211 @@ body { font-size: 17px; line-height: 1.7; }
   .page-footer { width: calc(100% - 32px); }
   .page-controls .action-button { gap: 7px; padding-inline: 10px; }
 }
+
+
+/* Final interaction pass: remove the header wordmark, clarify page numbering,
+   and keep dropdown/stepper surfaces solid instead of simulated glass. */
+.floating-header {
+  gap: 10px;
+}
+.header-divider {
+  margin-left: 2px;
+}
+.header-current {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 260px;
+  padding-left: 13px;
+  color: #454153;
+  font-size: 14px;
+  font-weight: 550;
+  white-space: nowrap;
+}
+.header-current-index {
+  flex: 0 0 auto;
+  color: var(--accent-dark);
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .01em;
+}
+.header-current-title {
+  display: block;
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* A two-level heading: parent section above, explicit 02.1 subsection number below. */
+.section-kicker {
+  gap: 11px;
+  margin-bottom: 22px;
+  color: #454153;
+  font-size: 14px;
+  font-weight: 620;
+  letter-spacing: 0;
+}
+.section-kicker span:first-child {
+  display: inline-flex;
+  flex: 0 0 36px;
+  align-items: center;
+  justify-content: center;
+  min-height: 29px;
+  border-radius: 7px;
+  background: var(--accent-soft);
+  color: var(--accent-dark);
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.section-kicker span + span {
+  display: block;
+  color: #454153;
+}
+.section-kicker span + span::before { display: none; }
+.article h1 .article-title-index {
+  display: block;
+  margin: 0 0 9px;
+  color: var(--accent-dark);
+  font-size: .34em;
+  font-weight: 800;
+  letter-spacing: .025em;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.article h1 .article-title-text { display: block; }
+
+/* The side menu stays below the floating header and inside all viewport edges. */
+.course-sidebar {
+  inset: 90px auto 16px 16px;
+  width: min(304px, calc(100vw - 32px));
+  padding: 18px 15px 16px;
+  border-color: #e7e4eb;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 14px 34px rgba(25, 20, 40, .14);
+}
+.sidebar-header { gap: 10px; padding: 0 0 16px; }
+.sidebar-header h2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 20px;
+  line-height: 1.28;
+  letter-spacing: -.025em;
+}
+.sidebar-title-index {
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.sidebar-title-label { display: block; }
+.sidebar-link, .sidebar-section-link {
+  gap: 9px;
+  padding: 9px 10px;
+  font-size: 13px;
+}
+.sidebar-index {
+  flex-basis: 43px;
+  color: #5d479f;
+  font-size: 12px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+.sidebar-section-index {
+  flex: 0 0 27px;
+  color: #5d479f;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.sidebar-sections { gap: 2px; }
+.sidebar-section-link { align-items: flex-start; line-height: 1.4; }
+
+/* Dropdown/spoiler panels are fully opaque; only the lower corners are rounded. */
+.nav-dropdown {
+  top: calc(100% + 5px);
+  max-width: min(320px, 88vw);
+  border: 1px solid #e7e4eb;
+  border-radius: 0 0 16px 16px;
+  background: #fff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 14px 30px rgba(25, 20, 40, .14);
+}
+.nav-dropdown::before { top: -6px; height: 6px; }
+.nav-dropdown-link {
+  color: #454153;
+  border-radius: 7px;
+}
+.nav-dropdown-index {
+  flex: 0 0 43px;
+  color: #5d479f;
+  font-size: 12px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.nav-dropdown-link:hover { background: var(--accent-soft); color: var(--ink); }
+
+/* Back/Next steppers are solid, with the rounded edge at the bottom only. */
+.page-controls .action-button {
+  border: 1px solid #d9d4e7;
+  border-radius: 0 0 12px 12px;
+  background: #fff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 8px 22px rgba(18, 15, 29, .18);
+}
+.page-controls .action-button--primary {
+  border-color: var(--accent-dark);
+  background: var(--accent);
+  color: #fff;
+}
+.page-controls .action-button--secondary:disabled {
+  border-color: #ded9e8;
+  background: #eeebf4;
+  color: #746d83;
+}
+.page-controls .action-button--primary:disabled {
+  border-color: #bcb2d8;
+  background: #bcb2d8;
+  color: #fff;
+}
+@media (max-width: 900px) {
+  .header-current { max-width: 210px; gap: 7px; padding-left: 10px; font-size: 13px; }
+  .header-current-index { font-size: 13px; }
+  .header-current-title { max-width: 145px; }
+}
+@media (max-width: 760px) {
+  .course-sidebar {
+    inset: 74px auto 12px 12px;
+    width: min(320px, calc(100vw - 24px));
+    padding: 16px 13px 14px;
+    border-radius: 16px;
+  }
+  .sidebar-header h2 { font-size: 19px; }
+  .header-current {
+    max-width: min(58vw, 245px);
+    gap: 7px;
+    padding-left: 10px;
+    font-size: 12px;
+  }
+  .header-current-title { max-width: min(38vw, 165px); }
+  .header-current-index { font-size: 12px; }
+  .nav-dropdown {
+    max-width: min(290px, 88vw);
+    min-width: 235px;
+  }
+  .page-home .vanta-hero { height: 100svh; }
+}
+@media (max-width: 420px) {
+  .header-current { max-width: 55vw; }
+  .header-current-title { max-width: 31vw; }
+}
