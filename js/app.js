@@ -38,11 +38,11 @@
 
   function getPageNumber(page) {
     const match = page.id.match(/^page-(\d+)-(\d+)$/);
-    return match ? `${String(match[1]).padStart(2, "0")}.${match[2]}` : "";
+    return match ? `${Number(match[1])}.${Number(match[2])}` : "";
   }
 
   function getSectionNumber(section) {
-    return String(section).padStart(2, "0");
+    return String(Number(section));
   }
 
   function makeButton(className, indexText, labelText, onClick, active) {
@@ -97,7 +97,7 @@
       const firstPage = pages.find((page) => page.dataset.section === section);
       sidebarSections.appendChild(makeButton(
         "sidebar-section-link",
-        section.padStart(2, "0"),
+        getSectionNumber(section),
         sectionNames[section].replace("Общие сведения о платформе", "О платформе").replace("Практика и самопроверка", "Практика").replace("Справочные материалы", "Справка"),
         () => {
           navigateTo(firstPage.id);
@@ -298,10 +298,6 @@
     if (firstPage) navigateTo(firstPage.id);
   });
 
-  document.querySelector(".brand").addEventListener("click", (event) => {
-    event.preventDefault();
-    navigateTo("page-1-1");
-  });
   document.getElementById("start-learning").addEventListener("click", () => navigateTo("page-1-2"));
   prevButton.addEventListener("click", () => {
     if (currentIndex > 0) navigateTo(pages[currentIndex - 1].id);

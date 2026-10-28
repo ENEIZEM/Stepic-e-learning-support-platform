@@ -1355,23 +1355,31 @@ body { font-size: 17px; line-height: 1.7; }
 }
 
 
-/* Final interaction pass: remove the header wordmark, clarify page numbering,
-   and keep dropdown/stepper surfaces solid instead of simulated glass. */
+/* Final interaction pass: restore the menu and keep floating controls consistent
+   with the REMS navbar. Opaque fills are only the unsupported-browser fallback. */
 .floating-header {
-  gap: 10px;
+  width: min(1280px, calc(100% - 48px));
+  max-width: 1280px;
+  gap: 8px;
+  padding-inline: 10px;
 }
-.header-divider {
-  margin-left: 2px;
+.header-divider { margin-left: 0; }
+.header-nav {
+  flex: 1 1 auto;
+  min-width: 0;
+  gap: 2px;
 }
 .header-current {
   display: flex;
+  flex: 0 1 auto;
   align-items: center;
   gap: 9px;
   max-width: 260px;
-  padding-left: 13px;
+  min-width: 0;
+  padding-left: 12px;
   color: #454153;
   font-size: 14px;
-  font-weight: 550;
+  font-weight: 600;
   white-space: nowrap;
 }
 .header-current-index {
@@ -1380,7 +1388,7 @@ body { font-size: 17px; line-height: 1.7; }
   font-size: 14px;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
-  letter-spacing: .01em;
+  letter-spacing: 0;
 }
 .header-current-title {
   display: block;
@@ -1390,63 +1398,48 @@ body { font-size: 17px; line-height: 1.7; }
   white-space: nowrap;
 }
 
-/* A two-level heading: parent section above, explicit 02.1 subsection number below. */
+/* Page body: the active route number is only in the header, not above h1. */
 .section-kicker {
-  gap: 11px;
+  gap: 0;
   margin-bottom: 22px;
   color: #454153;
   font-size: 14px;
   font-weight: 620;
   letter-spacing: 0;
 }
-.section-kicker span:first-child {
-  display: inline-flex;
-  flex: 0 0 36px;
-  align-items: center;
-  justify-content: center;
-  min-height: 29px;
-  border-radius: 7px;
-  background: var(--accent-soft);
-  color: var(--accent-dark);
-  font-size: 13px;
-  font-weight: 800;
-  font-variant-numeric: tabular-nums;
+.section-kicker .section-label {
+  display: block;
+  flex: initial;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #454153;
+  font-size: 14px;
+  font-weight: 620;
   letter-spacing: 0;
 }
-.section-kicker span + span {
-  display: block;
-  color: #454153;
-}
-.section-kicker span + span::before { display: none; }
-.article h1 .article-title-index {
-  display: block;
-  margin: 0 0 9px;
-  color: var(--accent-dark);
-  font-size: .34em;
-  font-weight: 800;
-  letter-spacing: .025em;
-  line-height: 1.2;
-  font-variant-numeric: tabular-nums;
-}
-.article h1 .article-title-text { display: block; }
+.section-kicker .section-label::before { display: none; }
+.article h1 .article-title-index { display: none; }
 
-/* The side menu stays below the floating header and inside all viewport edges. */
+/* Menu sits just below the header and keeps a compact footprint. */
 .course-sidebar {
-  inset: 90px auto 16px 16px;
-  width: min(304px, calc(100vw - 32px));
-  padding: 18px 15px 16px;
-  border-color: #e7e4eb;
+  inset: 88px auto 16px 16px;
+  width: min(296px, calc(100vw - 32px));
+  padding: 17px 14px 15px;
+  border: 1px solid #e7e4eb;
   border-radius: 18px;
   background: #fff;
   box-shadow: 0 14px 34px rgba(25, 20, 40, .14);
 }
-.sidebar-header { gap: 10px; padding: 0 0 16px; }
+.sidebar-header { gap: 10px; padding: 0 0 15px; }
 .sidebar-header h2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.28;
   letter-spacing: -.025em;
 }
@@ -1454,7 +1447,7 @@ body { font-size: 17px; line-height: 1.7; }
   color: var(--accent-dark);
   font-size: 12px;
   font-weight: 800;
-  letter-spacing: .04em;
+  letter-spacing: 0;
   line-height: 1.2;
   font-variant-numeric: tabular-nums;
 }
@@ -1465,14 +1458,14 @@ body { font-size: 17px; line-height: 1.7; }
   font-size: 13px;
 }
 .sidebar-index {
-  flex-basis: 43px;
+  flex: 0 0 35px;
   color: #5d479f;
   font-size: 12px;
   font-weight: 750;
   font-variant-numeric: tabular-nums;
 }
 .sidebar-section-index {
-  flex: 0 0 27px;
+  flex: 0 0 24px;
   color: #5d479f;
   font-size: 11px;
   font-weight: 800;
@@ -1481,7 +1474,7 @@ body { font-size: 17px; line-height: 1.7; }
 .sidebar-sections { gap: 2px; }
 .sidebar-section-link { align-items: flex-start; line-height: 1.4; }
 
-/* Dropdown/spoiler panels are fully opaque; only the lower corners are rounded. */
+/* Dropdowns are solid white and have only their lower corners rounded. */
 .nav-dropdown {
   top: calc(100% + 5px);
   max-width: min(320px, 88vw);
@@ -1494,11 +1487,11 @@ body { font-size: 17px; line-height: 1.7; }
 }
 .nav-dropdown::before { top: -6px; height: 6px; }
 .nav-dropdown-link {
-  color: #454153;
   border-radius: 7px;
+  color: #454153;
 }
 .nav-dropdown-index {
-  flex: 0 0 43px;
+  flex: 0 0 35px;
   color: #5d479f;
   font-size: 12px;
   font-weight: 800;
@@ -1506,14 +1499,41 @@ body { font-size: 17px; line-height: 1.7; }
 }
 .nav-dropdown-link:hover { background: var(--accent-soft); color: var(--ink); }
 
-/* Back/Next steppers are solid, with the rounded edge at the bottom only. */
+/* Back/Next are independent floating glass controls, rounded on every corner. */
+.page-footer {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  pointer-events: none;
+}
+.page-footer > p { display: none; }
+.page-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  pointer-events: none;
+}
 .page-controls .action-button {
-  border: 1px solid #d9d4e7;
-  border-radius: 0 0 12px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255, 255, 255, .62);
+  border-radius: 18px;
   background: #fff;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: 0 8px 22px rgba(18, 15, 29, .18);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.2;
+  pointer-events: auto;
 }
 .page-controls .action-button--primary {
   border-color: var(--accent-dark);
@@ -1524,18 +1544,71 @@ body { font-size: 17px; line-height: 1.7; }
   border-color: #ded9e8;
   background: #eeebf4;
   color: #746d83;
+  opacity: 1;
 }
 .page-controls .action-button--primary:disabled {
   border-color: #bcb2d8;
   background: #bcb2d8;
   color: #fff;
+  opacity: 1;
+}
+
+/* Match REMS-desk: blur(18px) saturate(140%) on the actual glass surface.
+   The solid backgrounds above remain in place where backdrop-filter is unsupported. */
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .page-controls .action-button--secondary {
+    border-color: rgba(255, 255, 255, .65);
+    background: rgba(255, 255, 255, .70);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+  .page-controls .action-button--primary {
+    border-color: rgba(255, 255, 255, .28);
+    background: rgba(118, 96, 188, .82);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+  }
+  .page-controls .action-button--secondary:disabled {
+    border-color: rgba(255, 255, 255, .65);
+    background: rgba(238, 235, 244, .92);
+  }
+  .page-controls .action-button--primary:disabled {
+    border-color: rgba(255, 255, 255, .28);
+    background: rgba(188, 178, 216, .92);
+  }
+}
+
+@media (max-width: 1120px) {
+  .floating-header { width: calc(100% - 28px); max-width: 1280px; gap: 6px; }
+  .nav-group-trigger { padding-inline: 8px; font-size: 13px; }
+  .header-current { max-width: 220px; gap: 7px; padding-left: 10px; font-size: 13px; }
+  .header-current-index { font-size: 13px; }
+  .header-current-title { max-width: 155px; }
 }
 @media (max-width: 900px) {
-  .header-current { max-width: 210px; gap: 7px; padding-left: 10px; font-size: 13px; }
-  .header-current-index { font-size: 13px; }
-  .header-current-title { max-width: 145px; }
+  .nav-group-trigger { padding-inline: 6px; font-size: 12px; }
+  .header-current { max-width: 185px; padding-left: 8px; font-size: 12px; }
+  .header-current-index { font-size: 12px; }
+  .header-current-title { max-width: 125px; }
 }
 @media (max-width: 760px) {
+  .floating-header {
+    top: .625rem;
+    width: calc(100% - 1.25rem);
+    min-height: 3.5rem;
+    padding: .45rem .7rem;
+    border-radius: var(--radius-2xl);
+  }
+  .header-nav { display: none; }
+  .header-divider { margin-right: auto; }
+  .header-current {
+    display: flex;
+    max-width: min(58vw, 245px);
+    gap: 7px;
+    padding-left: 10px;
+    font-size: 12px;
+  }
+  .header-current-title { max-width: min(38vw, 165px); }
   .course-sidebar {
     inset: 74px auto 12px 12px;
     width: min(320px, calc(100vw - 24px));
@@ -1543,21 +1616,11 @@ body { font-size: 17px; line-height: 1.7; }
     border-radius: 16px;
   }
   .sidebar-header h2 { font-size: 19px; }
-  .header-current {
-    max-width: min(58vw, 245px);
-    gap: 7px;
-    padding-left: 10px;
-    font-size: 12px;
-  }
-  .header-current-title { max-width: min(38vw, 165px); }
-  .header-current-index { font-size: 12px; }
-  .nav-dropdown {
-    max-width: min(290px, 88vw);
-    min-width: 235px;
-  }
-  .page-home .vanta-hero { height: 100svh; }
+  .nav-dropdown { max-width: min(290px, 88vw); min-width: 235px; }
 }
 @media (max-width: 420px) {
   .header-current { max-width: 55vw; }
   .header-current-title { max-width: 31vw; }
+  .page-controls { gap: 12px; }
+  .page-controls .action-button { padding-inline: 12px; }
 }
