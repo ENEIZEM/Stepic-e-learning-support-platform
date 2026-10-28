@@ -185,7 +185,7 @@
     } else {
       window.location.hash = id;
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.getElementById("page-container").scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function openSidebar() {
