@@ -1624,3 +1624,66 @@ body { font-size: 17px; line-height: 1.7; }
   .page-controls { gap: 12px; }
   .page-controls .action-button { padding-inline: 12px; }
 }
+
+
+/* Sidebar: same top inset as the floating header; current section title has no number. */
+.course-sidebar { inset: 16px auto 16px 16px; width: min(296px,calc(100vw - 32px)); padding: 18px 16px; border: 1px solid #e7e4eb; border-radius: 18px; background: #fff; box-shadow: 0 14px 34px rgba(25,20,40,.14); }
+.sidebar-header { padding-bottom: 15px; }
+.sidebar-header h2 { display: block; margin: 3px 0 0; font-size: 20px; font-weight: 620; line-height: 1.3; letter-spacing: -.025em; }
+.sidebar-title-index { display: none; }
+.sidebar-current { display: block; gap: 0; padding: 0 0 14px 6px; overflow-y: auto; }
+.sidebar-link { display: flex; align-items: baseline; gap: 9px; width: 100%; padding: 8px 6px 8px 12px; border: 0; border-left: 2px solid transparent; border-radius: 0; background: transparent; color: #4d485b; font-size: 13px; line-height: 1.45; text-align: left; }
+.sidebar-link:hover,.sidebar-link.is-active { border-left-color: var(--accent); background: transparent; color: var(--accent-dark); }
+.sidebar-link.is-active { font-weight: 650; }
+.sidebar-index { flex: 0 0 35px; color: #5d479f; font-size: 12px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.sidebar-rule { margin: 0 2px 13px; }
+.sidebar-all-label { margin: 0 0 7px 8px; }
+.sidebar-sections { display: grid; grid-template-columns: 1fr; gap: 0; padding-left: 6px; overflow-y: auto; }
+.sidebar-section-link { display: flex; align-items: baseline; gap: 9px; padding: 7px 6px 7px 12px; border: 0; border-bottom: 1px solid #f0edf4; border-radius: 0; background: transparent; color: #4d485b; font-size: 12px; line-height: 1.4; }
+.sidebar-section-link:hover,.sidebar-section-link.is-active { background: transparent; color: var(--accent-dark); }
+.sidebar-section-link.is-active { font-weight: 650; }
+.sidebar-section-index { flex: 0 0 12px; color: #5d479f; font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Section number directly before the section label, with no badge or long divider. */
+.section-kicker { display: flex; align-items: baseline; gap: 10px; margin-bottom: 22px; color: #454153; font-size: 14px; font-weight: 620; letter-spacing: 0; }
+.section-kicker .section-number { flex: 0 0 auto; color: var(--accent-dark); font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.section-kicker .section-label { display: block; flex: initial; min-height: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: #454153; font-size: 14px; font-weight: 620; letter-spacing: 0; }
+
+/* Course page mockup follows the supplied Stepik contents screenshot. */
+.hero-mockup { min-width: 0; padding: .25rem 0; align-items: center; justify-content: flex-end; }
+.mockup-window.stepik-mockup { display: flex; flex-direction: column; width: 100%; max-width: 560px; height: min(548px,calc(100svh - 112px)); min-height: 450px; overflow: hidden; border: 1px solid #d5d5d5; border-radius: 5px; background: #fff; box-shadow: 0 24px 58px rgba(0,0,0,.34); color: #252525; font-family: Arial,Helvetica,sans-serif; letter-spacing: 0; line-height: 1.35; }
+.stepik-mockup-topbar { display: flex; flex: 0 0 36px; align-items: center; gap: 15px; min-width: 0; padding: 0 11px; background: #171717; color: #f4f4f4; }
+.stepik-wordmark { display: flex; flex: 0 0 auto; align-items: center; gap: 5px; color: #fff; font-size: 19px; font-weight: 500; letter-spacing: -.055em; }
+.stepik-mark { display: grid; width: 19px; height: 19px; place-items: center; border-radius: 50%; background: #fff; color: #171717; font-size: 13px; font-weight: 800; }
+.stepik-mockup-nav { display: flex; align-items: center; gap: clamp(7px,1.1vw,16px); min-width: 0; overflow: hidden; color: #d5d5d5; font-size: 10px; white-space: nowrap; }
+.stepik-search { margin-left: auto; color: #ddd; font-size: 21px; line-height: 1; }
+.stepik-mockup-content { display: grid; grid-template-columns: minmax(112px,34%) minmax(0,1fr); flex: 1 1 auto; min-height: 0; background: #fafafa; }
+.stepik-course-aside { min-width: 0; overflow: hidden; padding: 13px 11px 10px; border-right: 1px solid #e4e4e4; background: #fbfbfb; color: #4b4b4b; font-size: 9px; }
+.stepik-course-avatar { display: grid; width: 34px; height: 34px; place-items: center; margin: 0 auto 8px; border: 1px solid #e8e8e8; border-radius: 5px; background: linear-gradient(135deg,#d9eee2,#f0e6d8 58%,#d9e6f8); font-size: 21px; }
+.stepik-course-title { margin: 0 0 12px; color: #282828; font-size: 12px; font-weight: 600; line-height: 1.3; letter-spacing: -.015em; }
+.stepik-course-progress { height: 5px; overflow: hidden; margin-bottom: 4px; background: #dfdfdf; }
+.stepik-course-progress span { display: block; width: 95%; height: 100%; background: #69b96f; }
+.stepik-progress-caption,.stepik-score-caption { margin: 0 0 3px; color: #626262; font-size: 8px; line-height: 1.35; }
+.stepik-score-caption { margin-bottom: 10px; }
+.stepik-continue { display: flex; align-items: center; justify-content: center; min-height: 28px; margin-bottom: 12px; border-radius: 3px; background: #54ae60; color: #fff; font-size: 10px; font-weight: 600; }
+.stepik-course-nav { display: grid; gap: 0; margin-bottom: 9px; padding-bottom: 7px; border-bottom: 1px solid #e5e5e5; color: #535353; font-size: 10px; }
+.stepik-course-nav span { padding: 5px 0; }
+.stepik-course-nav .is-active { color: #40864a; font-weight: 700; }
+.stepik-course-actions { display: flex; align-items: baseline; gap: 6px; margin: 8px 0; color: #646464; font-size: 8px; white-space: nowrap; }
+.stepik-course-actions span { color: #555; font-size: 13px; }
+.stepik-syllabus { min-width: 0; overflow: hidden; padding: 0; background: #fff; }
+.stepik-syllabus-section { margin: 0 0 12px; border-left: 4px solid #78bf7b; }
+.stepik-syllabus-heading { display: flex; align-items: center; justify-content: space-between; gap: 7px; min-height: 34px; padding: 0 8px; border-bottom: 1px solid #dedede; color: #333; }
+.stepik-syllabus-heading strong { display: block; min-width: 0; overflow: hidden; font-size: 10px; font-weight: 600; line-height: 1.3; }
+.stepik-syllabus-heading strong span { color: #666; font-weight: 500; }
+.stepik-section-progress { display: flex; align-items: center; flex: 0 0 auto; gap: 4px; color: #777; font-size: 7px; white-space: nowrap; }
+.stepik-section-progress i { width: 8px; height: 8px; border-radius: 50%; background: #65c274; }
+.stepik-lesson-row { display: flex; align-items: center; gap: 8px; min-height: 43px; padding: 5px 7px 5px 11px; border-bottom: 1px solid #e0e0e0; background: #fff; }
+.stepik-lesson-number { display: grid; width: 29px; height: 29px; flex: 0 0 29px; place-items: center; border-radius: 2px; background: #62bf6d; color: #fff; font-size: 18px; font-weight: 700; line-height: 1; }
+.stepik-lesson-star { font-size: 19px; }
+.stepik-lesson-title { flex: 1 1 auto; min-width: 0; overflow: hidden; color: #4c4c4c; font-size: 9px; line-height: 1.35; }
+.stepik-lesson-stat { flex: 0 0 auto; color: #888; font-size: 7px; }
+.stepik-exam-note { margin: 0; padding: 8px 8px 5px; color: #737373; font-size: 8px; }
+@media (max-width: 1120px) { .stepik-mockup-nav { gap: 7px; font-size: 9px; } .stepik-course-aside { padding-inline: 9px; } .stepik-lesson-row { gap: 6px; padding-inline: 7px; } }
+@media (max-width: 900px) { .mockup-window.stepik-mockup { height: min(500px,calc(100svh - 110px)); min-height: 420px; } .stepik-course-title { font-size: 11px; } .stepik-syllabus-heading strong { font-size: 9px; } .stepik-lesson-number { width: 25px; height: 25px; flex-basis: 25px; font-size: 16px; } }
+@media (max-width: 760px) { .course-sidebar { inset: 10px auto 12px 10px; width: min(320px,calc(100vw - 20px)); } .stepik-mockup { display: none; } }

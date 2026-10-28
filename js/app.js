@@ -68,14 +68,7 @@
     const currentPage = pages[currentIndex];
     const currentSection = currentPage.dataset.section;
     const sectionPages = pages.filter((page) => page.dataset.section === currentSection);
-    sidebarSectionTitle.replaceChildren();
-    const titleIndex = document.createElement("span");
-    titleIndex.className = "sidebar-title-index";
-    titleIndex.textContent = getSectionNumber(currentSection);
-    const titleLabel = document.createElement("span");
-    titleLabel.className = "sidebar-title-label";
-    titleLabel.textContent = sectionNames[currentSection];
-    sidebarSectionTitle.append(titleIndex, titleLabel);
+    sidebarSectionTitle.textContent = sectionNames[currentSection];
     sidebarCurrent.replaceChildren();
 
     sectionPages.forEach((page) => {
