@@ -1164,3 +1164,12 @@ body { font-size: 17px; line-height: 1.7; }
   .hero-2col { width: calc(100% - 40px); }
   .page-footer { width: calc(100% - 40px); border-radius: var(--radius-2xl); }
 }
+
+
+/* Avoid repeating the active top-level nav label beside the brand on the landing. */
+.floating-header.is-home .header-current { display: none; }
+@media (max-width: 760px) {
+  .hero-2col { width: calc(100% - 40px); }
+  .article, .article-wide { width: 100%; }
+  .page-footer { width: calc(100% - 40px); }
+}

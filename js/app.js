@@ -157,7 +157,9 @@
       page.setAttribute("aria-hidden", String(!active));
     });
 
-    headerCurrent.textContent = currentPage.id === "page-1-1" ? "Обзор" : currentPage.dataset.title;
+    const isLanding = currentPage.id === "page-1-1";
+    headerCurrent.textContent = isLanding ? "" : currentPage.dataset.title;
+    document.getElementById("site-header").classList.toggle("is-home", isLanding);
     headerNav.querySelectorAll(".nav-group-trigger[data-section]").forEach((button) => {
       const active = button.dataset.section === currentPage.dataset.section;
       button.classList.toggle("is-active", active);
