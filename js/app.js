@@ -186,7 +186,16 @@
     });
 
     const isLanding = currentPage.id === "page-1-1";
-    headerCurrent.textContent = isLanding ? "" : currentPage.dataset.title;
+    headerCurrent.replaceChildren();
+    if (!isLanding) {
+      const number = document.createElement("span");
+      number.className = "header-current-index";
+      number.textContent = getPageNumber(currentPage);
+      const title = document.createElement("span");
+      title.className = "header-current-title";
+      title.textContent = currentPage.dataset.title;
+      headerCurrent.append(number, title);
+    }
     document.getElementById("site-header").classList.toggle("is-home", isLanding);
     headerNav.querySelectorAll(".nav-group-trigger[data-section]").forEach((button) => {
       const active = button.dataset.section === currentPage.dataset.section;
