@@ -88,6 +88,7 @@
         },
         section === currentPage.dataset.section
       );
+      moduleButton.removeAttribute("aria-current");
       moduleButton.setAttribute("aria-expanded", "true");
       moduleButton.setAttribute("aria-controls", pagesList.id);
       const moduleLabel = moduleButton.querySelector("span:last-of-type");

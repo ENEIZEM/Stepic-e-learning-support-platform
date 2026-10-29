@@ -1887,3 +1887,13 @@ button:focus-visible, a:focus-visible {
   letter-spacing: .04em;
 }
 @media (max-width: 760px) { .cover-bottom p, .cover-enter { width: 150px; } }
+
+
+/* Keep mobile sidebar top aligned with the mobile floating header. */
+@media (max-width: 760px) {
+  .course-sidebar {
+    inset: .625rem auto .625rem .625rem;
+    width: calc(100vw - 1.25rem);
+    padding: 16px 14px 14px;
+  }
+}
