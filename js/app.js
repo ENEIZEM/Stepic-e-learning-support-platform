@@ -106,7 +106,6 @@
           page.dataset.title,
           () => {
             navigateTo(page.id);
-            closeSidebar();
           },
           page.id === currentPage.id
         );
@@ -187,16 +186,7 @@
     });
 
     const isLanding = currentPage.id === "page-1-1";
-    headerCurrent.replaceChildren();
-    if (!isLanding) {
-      const number = document.createElement("span");
-      number.className = "header-current-index";
-      number.textContent = getPageNumber(currentPage);
-      const title = document.createElement("span");
-      title.className = "header-current-title";
-      title.textContent = currentPage.dataset.title;
-      headerCurrent.append(number, title);
-    }
+    headerCurrent.textContent = isLanding ? "" : currentPage.dataset.title;
     document.getElementById("site-header").classList.toggle("is-home", isLanding);
     headerNav.querySelectorAll(".nav-group-trigger[data-section]").forEach((button) => {
       const active = button.dataset.section === currentPage.dataset.section;
@@ -216,6 +206,8 @@
     nextButton.disabled = currentIndex === pages.length - 1;
     document.title = currentPage.dataset.title + " — Stepic";
     updateSidebar();
+    if (entered && !isLanding) openSidebar();
+    else closeSidebar();
   }
 
   function navigateTo(id) {
@@ -230,33 +222,26 @@
 
   function openSidebar() {
     updateSidebar();
-    sidebarBackdrop.hidden = false;
+    sidebarBackdrop.hidden = true;
+    sidebarBackdrop.classList.remove("is-open");
+    sidebar.classList.add("is-open");
     sidebar.inert = false;
-    requestAnimationFrame(() => {
-      sidebar.classList.add("is-open");
-      sidebarBackdrop.classList.add("is-open");
-    });
     sidebar.setAttribute("aria-hidden", "false");
     menuToggle.setAttribute("aria-expanded", "true");
-    menuToggle.setAttribute("aria-label", "Закрыть содержание");
-    document.body.style.overflow = "hidden";
-    sidebarClose.focus();
+    menuToggle.setAttribute("aria-label", "Свернуть навигацию");
   }
 
   function closeSidebar() {
     sidebar.classList.remove("is-open");
     sidebarBackdrop.classList.remove("is-open");
+    sidebarBackdrop.hidden = true;
     sidebar.setAttribute("aria-hidden", "true");
     sidebar.inert = true;
     menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Открыть содержание");
-    document.body.style.overflow = "";
-    window.setTimeout(() => {
-      if (!sidebar.classList.contains("is-open")) sidebarBackdrop.hidden = true;
-    }, 240);
+    menuToggle.setAttribute("aria-label", "Открыть навигацию");
   }
 
-  function initializeVanta() {
+    function initializeVanta() {
     if (vantaEffect || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (!window.VANTA || !window.THREE) return;
     const el = document.getElementById("vanta-net");
