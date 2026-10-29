@@ -20,8 +20,6 @@
   const sidebarBackdrop = document.getElementById("sidebar-backdrop");
   const sidebarClose = document.getElementById("sidebar-close");
   const sidebarCurrent = document.getElementById("sidebar-current");
-  const sidebarSections = document.getElementById("sidebar-sections");
-  const sidebarSectionTitle = document.getElementById("sidebar-section-title");
   const headerNav = document.getElementById("header-nav");
   const headerCurrent = document.getElementById("header-current");
   const pageFooter = document.getElementById("page-footer");
@@ -66,38 +64,59 @@
 
   function updateSidebar() {
     const currentPage = pages[currentIndex];
-    const currentSection = currentPage.dataset.section;
-    const sectionPages = pages.filter((page) => page.dataset.section === currentSection);
-    sidebarSectionTitle.textContent = sectionNames[currentSection];
     sidebarCurrent.replaceChildren();
 
-    sectionPages.forEach((page) => {
-      const index = getPageNumber(page);
-      sidebarCurrent.appendChild(makeButton(
-        "sidebar-link",
-        index,
-        page.dataset.title,
-        () => {
-          navigateTo(page.id);
-          closeSidebar();
-        },
-        page.id === currentPage.id
-      ));
-    });
-
-    sidebarSections.replaceChildren();
     Object.keys(sectionNames).forEach((section) => {
-      const firstPage = pages.find((page) => page.dataset.section === section);
-      sidebarSections.appendChild(makeButton(
-        "sidebar-section-link",
+      const sectionPages = pages.filter((page) => page.dataset.section === section);
+      const group = document.createElement("div");
+      group.className = "sidebar-tree-group";
+      if (section === currentPage.dataset.section) group.classList.add("is-current-group");
+
+      const pagesList = document.createElement("div");
+      pagesList.className = "sidebar-tree-pages";
+      pagesList.id = "sidebar-tree-pages-" + section;
+
+      const moduleButton = makeButton(
+        "sidebar-tree-module",
         getSectionNumber(section),
-        sectionNames[section].replace("Общие сведения о платформе", "О платформе").replace("Практика и самопроверка", "Практика").replace("Справочные материалы", "Справка"),
+        sectionNames[section],
         () => {
-          navigateTo(firstPage.id);
-          closeSidebar();
+          const expanded = moduleButton.getAttribute("aria-expanded") === "true";
+          moduleButton.setAttribute("aria-expanded", String(!expanded));
+          pagesList.hidden = expanded;
+          group.classList.toggle("is-collapsed", expanded);
         },
-        section === currentSection
-      ));
+        section === currentPage.dataset.section
+      );
+      moduleButton.setAttribute("aria-expanded", "true");
+      moduleButton.setAttribute("aria-controls", pagesList.id);
+      const moduleLabel = moduleButton.querySelector("span:last-of-type");
+      if (moduleLabel) moduleLabel.className = "sidebar-tree-module-label";
+      const caret = document.createElement("span");
+      caret.className = "sidebar-tree-chevron";
+      caret.setAttribute("aria-hidden", "true");
+      moduleButton.appendChild(caret);
+      group.appendChild(moduleButton);
+
+      sectionPages.forEach((page) => {
+        const pageButton = makeButton(
+          "sidebar-tree-page",
+          getPageNumber(page),
+          page.dataset.title,
+          () => {
+            navigateTo(page.id);
+            closeSidebar();
+          },
+          page.id === currentPage.id
+        );
+        pageButton.setAttribute("aria-current", page.id === currentPage.id ? "page" : "false");
+        const pageLabel = pageButton.querySelector("span:last-of-type");
+        if (pageLabel) pageLabel.className = "sidebar-tree-page-label";
+        pagesList.appendChild(pageButton);
+      });
+
+      group.appendChild(pagesList);
+      sidebarCurrent.appendChild(group);
     });
   }
 
