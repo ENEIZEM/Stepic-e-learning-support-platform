@@ -418,10 +418,78 @@
           </div>
         </article>
       </section>
-      <section class="page page-article" id="page-2-3" data-section="2" data-title="Интеграция и API" aria-labelledby="title-2-3">
+            <section class="page page-article" id="page-2-3" data-section="2" data-title="Интеграция и API" aria-labelledby="title-2-3">
         <article class="article">
-          <div class="article-heading"><p class="section-kicker"><span class="section-label">Общие сведения о платформе</span></p><h1 id="title-2-3">Интеграция и API</h1></div>
-          <p class="placeholder">Материал будет добавлен на следующем этапе разработки.</p>
+          <div class="article-heading">
+            <p class="section-kicker"><span class="section-label">Общие сведения о платформе</span></p>
+            <h1 id="title-2-3">Интеграция и API</h1>
+            <p class="article-lead">Stepik предоставляет REST API в формате JSON. Через него можно получать данные, настраивать авторизацию и связывать образовательную платформу с внешними системами.</p>
+          </div>
+          <div class="article-body api-page-content">
+            <section class="content-section">
+              <h2>Способы интеграции</h2>
+              <div class="api-integration-grid">
+                <article class="api-integration-card"><span>01</span><h3>REST API · JSON</h3><p>Программный доступ к данным и основным функциям платформы через HTTP-запросы и JSON.</p><small>Данные и автоматизация</small></article>
+                <article class="api-integration-card"><span>02</span><h3>OAuth 2</h3><p>Авторизация пользователя через Stepik без передачи приложению пароля; доступ ограничивается выданными правами.</p><small>Вход и разрешения</small></article>
+                <article class="api-integration-card"><span>03</span><h3>Встраивание · iframe</h3><p>Размещение урока или курса Stepik внутри страницы другого сайта. Для сохранения прогресса нужен аккаунт.</p><small>Встроенный учебный блок</small></article>
+              </div>
+            </section>
+            <section class="content-section">
+              <h2>Попробуй API Explorer</h2>
+              <p>Нажми кнопку и посмотри на пример ответа API. Он иллюстрирует формат данных, но не выполняет реальный запрос.</p>
+              <div class="api-explorer-demo">
+                <div class="api-explorer-toolbar"><b>GET</b><code>https://stepik.org/api/courses</code><button type="button" id="api-demo-run">Выполнить запрос</button></div>
+                <div class="api-request-info"><div><span>Метод</span><strong>GET · чтение</strong></div><div><span>Формат</span><strong>JSON</strong></div><div><span>Авторизация</span><strong>Зависит от ресурса и прав</strong></div></div>
+                <div class="api-response-heading"><strong>Ответ сервера</strong><span id="api-demo-status">Ожидает выполнения</span></div>
+                <pre id="api-demo-response" aria-live="polite">Нажми «Выполнить запрос», чтобы увидеть демонстрационный ответ.</pre>
+                <p class="source-caption">JSON ниже — учебная иллюстрация, а не реальные данные Stepik. Точные поля и параметры смотри в документации API.</p>
+              </div>
+              <div class="api-code-card"><strong>Пример HTTP-запроса</strong><pre><code>GET /api/courses
+Host: stepik.org
+Accept: application/json</code></pre><p>В справке Stepik описан side-loading: вместе с курсами через ресурс /api/courses могут возвращаться связанные записи пользователя на курсы.</p></div>
+              <p class="source-link-line"><a href="https://stepik.org/api/docs/" target="_blank" rel="noopener noreferrer">Stepik REST API</a> · <a href="https://github.com/StepicOrg/Stepik-API" target="_blank" rel="noopener noreferrer">Официальный репозиторий с примерами</a>.</p>
+            </section>
+            <section class="content-section">
+              <h2>Встраивание курса через iframe</h2>
+              <p>Для размещения урока или курса на сторонней странице Stepik предлагает iframe. В официальном тестере используется путь с идентификатором курса.</p>
+              <div class="iframe-builder-demo">
+                <div class="iframe-builder-head"><b>S</b><strong>Проверка встраивания Stepik</strong><small>Учебный пример</small></div>
+                <label for="iframe-course-id">ID курса</label>
+                <div class="iframe-builder-input"><span>/</span><input id="iframe-course-id" value="67" inputmode="numeric" maxlength="12"><button type="button" id="iframe-course-build">Сформировать путь</button></div>
+                <div class="iframe-builder-result"><span>Путь для тестера</span><code id="iframe-course-path">/67</code></div>
+                <p id="iframe-course-status" role="status">Путь готов к проверке.</p>
+                <a href="https://stepik.org/embed-test" target="_blank" rel="noopener noreferrer">Открыть официальный iframe-тестер ↗</a>
+              </div>
+              <p class="source-caption">Мокап формирует путь для поля официальной тестовой страницы. Встраивание проверяется на Stepik, а не внутри локального СМИОР.</p>
+            </section>
+            <section class="content-section">
+              <h2>Как работает OAuth 2</h2>
+              <p>OAuth 2 позволяет приложению запросить разрешение на доступ к данным пользователя. Вместо пароля приложение получает токен с ограниченными правами.</p>
+              <div class="oauth-flow-demo">
+                <div class="oauth-flow-steps" role="group" aria-label="Этапы OAuth 2">
+                  <button type="button" class="is-active" data-oauth-step="0" aria-pressed="true"><span>01</span>Приложение</button>
+                  <button type="button" data-oauth-step="1" aria-pressed="false"><span>02</span>Авторизация</button>
+                  <button type="button" data-oauth-step="2" aria-pressed="false"><span>03</span>Токен</button>
+                  <button type="button" data-oauth-step="3" aria-pressed="false"><span>04</span>API</button>
+                </div>
+                <div class="oauth-flow-detail" aria-live="polite"><small id="oauth-step-caption">Шаг 1 из 4</small><h3 id="oauth-step-title">Регистрация приложения</h3><p id="oauth-step-description">Владелец аккаунта создаёт приложение в настройках Stepik и задаёт redirect_uri и параметры клиента.</p><code id="oauth-step-code">stepik.org/oauth2/applications/</code></div>
+                <div class="oauth-flow-controls"><button type="button" id="oauth-step-prev" disabled>Назад</button><button type="button" id="oauth-step-next">Следующий этап</button></div>
+              </div>
+              <div class="api-security-note"><strong>Безопасность ключей</strong><p>Client Secret и токены нельзя помещать в JavaScript статического сайта или публичный репозиторий. В реальной интеграции секрет хранится на защищённом сервере. Наш СМИОР не имеет сервера и не выполняет реальную OAuth-авторизацию.</p></div>
+              <p class="source-link-line"><a href="https://help.stepik.org/article/54830" target="_blank" rel="noopener noreferrer">Официальное описание интеграции с другими платформами</a>.</p>
+            </section>
+            <section class="content-section">
+              <h2>Типовая схема обмена данными</h2>
+              <div class="api-architecture"><div><b>Внешняя система</b><small>Сайт, LMS, портал</small></div><span>→</span><div><b>Сервер интеграции</b><small>Хранит секреты и токены</small></div><span>→</span><div><b>Stepik API</b><small>REST · JSON</small></div></div>
+              <p class="source-caption">Общая архитектура интеграции. Конкретные права и ресурсы определяются документацией API и настройками приложения.</p>
+            </section>
+            <div class="source-block"><strong>Официальные источники</strong><ul>
+              <li><a href="https://help.stepik.org/article/64188" target="_blank" rel="noopener noreferrer">Работа с API</a>.</li>
+              <li><a href="https://help.stepik.org/article/54830" target="_blank" rel="noopener noreferrer">Интеграция с другими платформами</a>.</li>
+              <li><a href="https://stepik.org/api/docs/" target="_blank" rel="noopener noreferrer">Stepik REST API</a>.</li>
+              <li><a href="https://github.com/StepicOrg/Stepik-API" target="_blank" rel="noopener noreferrer">StepicOrg/Stepik-API</a>.</li>
+            </ul></div>
+          </div>
         </article>
       </section>
 
@@ -540,10 +608,71 @@
           </div>
         </article>
       </section>
-      <section class="page page-article" id="page-3-2" data-section="3" data-title="Статистика и аналитика" aria-labelledby="title-3-2">
+            <section class="page page-article" id="page-3-2" data-section="3" data-title="Статистика и аналитика" aria-labelledby="title-3-2">
         <article class="article">
-          <div class="article-heading"><p class="section-kicker"><span class="section-label">Курсы и аналитика</span></p><h1 id="title-3-2">Статистика и аналитика</h1></div>
-          <p class="placeholder">Материал будет добавлен на следующем этапе разработки.</p>
+          <div class="article-heading">
+            <p class="section-kicker"><span class="section-label">Курсы и аналитика</span></p>
+            <h1 id="title-3-2">Статистика и аналитика</h1>
+            <p class="article-lead">Статистика Stepik помогает оценить динамику записи, активность учащихся, прохождение уроков и качество заданий. Преподаватель может перейти от общих показателей к конкретным шагам и попыткам решений.</p>
+          </div>
+          <div class="article-body analytics-page-content">
+            <section class="content-section">
+              <h2>Что можно анализировать</h2>
+              <div class="analytics-feature-grid">
+                <article><span>01</span><h3>Шаги и задания</h3><p>Оценки шагов, число правильных решений и доля успешных попыток.</p></article>
+                <article><span>02</span><h3>Уроки и модули</h3><p>Просмотры, среднее время прохождения и число завершивших обучение.</p></article>
+                <article><span>03</span><h3>Курс целиком</h3><p>Записи, сертификаты, просмотры и динамика прохождения модулей.</p></article>
+                <article><span>04</span><h3>Дашборд и отчёты</h3><p>Подсказки по проблемным шагам, табель успеваемости и выгрузки.</p></article>
+              </div>
+            </section>
+            <section class="content-section">
+              <h2>Попробуй панель аналитики</h2>
+              <p>Переключай период и тип графика. Все цифры и строки — искусственные учебные данные, не статистика реального курса.</p>
+              <div class="analytics-dashboard-demo" id="analytics-dashboard-demo">
+                <div class="analytics-dashboard-topbar"><div><small>Stepik · кабинет преподавателя</small><h3>Статистика курса</h3></div><label>Период<select id="analytics-period"><option value="7">7 дней</option><option value="30" selected>30 дней</option><option value="90">90 дней</option></select></label></div>
+                <div class="analytics-kpi-grid">
+                  <article><span>Записались на курс</span><strong id="analytics-kpi-enrolled">182</strong><small>за выбранный период</small></article>
+                  <article><span>Активные учащиеся</span><strong id="analytics-kpi-active">126</strong><small>отправили решение</small></article>
+                  <article><span>Попытки решений</span><strong id="analytics-kpi-attempts">3 816</strong><small>верные и неверные</small></article>
+                  <article><span>Завершили курс</span><strong id="analytics-kpi-completed">64</strong><small>демо-показатель</small></article>
+                </div>
+                <div class="analytics-chart-card">
+                  <div class="analytics-chart-header"><div><strong id="analytics-chart-title">Новые записи на курс</strong><small id="analytics-chart-subtitle">По неделям</small></div><div class="analytics-chart-tabs" role="group" aria-label="Выбор графика"><button type="button" class="is-active" data-analytics-chart="enrollments" aria-pressed="true">Записи</button><button type="button" data-analytics-chart="views" aria-pressed="false">Просмотры шагов</button></div></div>
+                  <div class="analytics-chart" id="analytics-chart" role="img" aria-label="Столбчатый график демонстрационных данных"><div id="analytics-chart-bars"></div><div id="analytics-chart-axis"></div></div>
+                  <div class="analytics-chart-legend"><i></i><span id="analytics-chart-legend">Новые учащиеся</span><small>условные значения</small></div>
+                </div>
+                <div class="analytics-bottom-grid">
+                  <div class="analytics-panel-card"><div class="analytics-panel-heading"><strong>Прохождение модулей</strong><small>Учебный пример</small></div><div id="analytics-module-list"></div></div>
+                  <div class="analytics-panel-card"><div class="analytics-panel-heading"><strong>Подсказка преподавателю</strong><small>Дашборд</small></div><div class="analytics-insight-mark">!</div><h4>Проверьте сложные шаги</h4><p>Если доля правильных решений ниже 20%, стоит проверить сложность задания и ясность формулировки.</p><a href="https://help.stepik.org/article/54814" target="_blank" rel="noopener noreferrer">Как работает статистика ↗</a></div>
+                </div>
+                <div class="analytics-gradebook"><div class="analytics-panel-heading"><strong>Фрагмент табеля успеваемости</strong><small>Анонимные учебные записи</small></div>
+                  <div class="analytics-gradebook-scroll" role="region" aria-label="Демонстрационный табель" tabindex="0"><table><thead><tr><th>Учащийся</th><th>Модуль 1</th><th>Модуль 2</th><th>Модуль 3</th><th>Итого</th></tr></thead><tbody><tr><th>Учащийся 01</th><td>18/20</td><td>14/20</td><td>—</td><td>32/40</td></tr><tr><th>Учащийся 02</th><td>20/20</td><td>18/20</td><td>16/20</td><td>54/60</td></tr><tr><th>Учащийся 03</th><td>12/20</td><td>—</td><td>—</td><td>12/20</td></tr></tbody></table></div>
+                  <div class="analytics-export-row"><label>Доступ курса<select id="analytics-course-access"><option value="free">Бесплатный курс</option><option value="paid">Платный курс · демо</option></select></label><button type="button" id="analytics-export" disabled>Скачать пример CSV</button><span id="analytics-export-note" role="status">По справке Stepik отчёты курса доступны для платных курсов.</span></div>
+                </div>
+              </div>
+              <p class="demo-disclaimer">Панель имитирует категории статистики Stepik, но не подключена к реальному курсу. Значения и учащиеся вымышлены.</p>
+            </section>
+            <section class="content-section">
+              <h2>Как читать дискриминативность</h2>
+              <p>Показатель помогает оценить, насколько задание различает учащихся с разной общей успеваемостью. В справке Stepik приводятся такие ориентиры:</p>
+              <div class="analytics-discrimination-scale">
+                <article><strong>0,5–1,0</strong><b>Высокая</b><p>Сильные учащиеся справляются лучше; задание хорошо разделяет уровни подготовки.</p></article>
+                <article><strong>0,1–0,5</strong><b>Средняя</b><p>Учащиеся с разной общей успеваемостью решают задание примерно одинаково.</p></article>
+                <article><strong>Менее 0,1</strong><b>Низкая</b><p>Стоит проверить формулировку, качество задания и проверку ответа.</p></article>
+              </div>
+            </section>
+            <section class="content-section">
+              <h2>Отчёты и выгрузка</h2>
+              <p>В официальной справке перечислены отчёты по успеваемости, действиям и решениям учащихся, экзаменам, шагам, структуре курса и среднему времени прохождения. Отчёты курса доступны для платных курсов; после генерации файлы хранятся на Stepik 7 дней.</p>
+              <div class="analytics-report-formats"><span>CSV</span><span>XLSX</span><span>HTML</span></div>
+              <p class="source-caption">В локальном мокапе реализовано только скачивание демонстрационного CSV. Форматы XLSX и HTML показаны как официально поддерживаемые, но здесь не генерируются.</p>
+            </section>
+            <div class="source-block"><strong>Официальные источники</strong><ul>
+              <li><a href="https://help.stepik.org/article/54814" target="_blank" rel="noopener noreferrer">Статистика по курсу</a>.</li>
+              <li><a href="https://help.stepik.org/article/54815" target="_blank" rel="noopener noreferrer">Отчёты по курсам и урокам</a>.</li>
+              <li><a href="https://help.stepik.org/article/54807" target="_blank" rel="noopener noreferrer">Настройки курса и аналитика</a>.</li>
+            </ul></div>
+          </div>
         </article>
       </section>
       <section class="page page-article" id="page-3-3" data-section="3" data-title="Примеры курсов" aria-labelledby="title-3-3">

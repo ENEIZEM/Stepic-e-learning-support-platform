@@ -1072,6 +1072,121 @@
     });
   }
 
+
+  // API Explorer: render an illustrative JSON response; never call the live API.
+  const apiRunButton=document.getElementById("api-demo-run");
+  if(apiRunButton){
+    apiRunButton.addEventListener("click",()=>{
+      const payload={courses:[{id:5207,title:"Создание курса на Stepik: Начальный уровень",summary:"Учебный курс для начинающих авторов",is_public:true}],enrollments:[{course:5207,status:"active",note:"Иллюстративная связанная запись"}],note:"Учебный пример. Точную структуру полей проверяйте в API docs."};
+      document.getElementById("api-demo-response").textContent=JSON.stringify(payload,null,2);
+      document.getElementById("api-demo-status").textContent="200 · пример ответа";
+      apiRunButton.textContent="Повторить запрос";
+    });
+  }
+
+  // iframe helper: make the numeric course path used by the official tester.
+  const iframeBuild=document.getElementById("iframe-course-build");
+  if(iframeBuild){
+    iframeBuild.addEventListener("click",()=>{
+      const field=document.getElementById("iframe-course-id"),status=document.getElementById("iframe-course-status");
+      const value=field.value.trim();
+      if(!/^\d{1,12}$/.test(value)){status.textContent="Укажи числовой ID курса.";status.classList.add("is-error");field.focus();return;}
+      document.getElementById("iframe-course-path").textContent="/"+value;
+      status.textContent="Путь сформирован. Вставь его в официальный тестер.";
+      status.classList.remove("is-error");status.classList.add("is-success");
+    });
+  }
+
+  // OAuth2 stepper. All values are placeholders, not real credentials.
+  const oauthStages=[
+    ["Регистрация приложения","Создай приложение в настройках Stepik и задай redirect_uri и тип клиента.","stepik.org/oauth2/applications/"],
+    ["Запрос разрешения","Пользователь переходит на страницу авторизации Stepik и подтверждает права, запрошенные приложением.","stepik.org/oauth2/authorize/"],
+    ["Получение токена","После авторизации приложение получает access token. Настоящий токен в учебном примере не создаётся.","Authorization: Bearer [ACCESS_TOKEN]"],
+    ["Обращение к API","Серверное приложение добавляет токен к запросу и получает данные, на чтение которых у него есть права.","GET https://stepik.org/api/courses"]
+  ];
+  let oauthIndex=0;
+  const oauthButtons=Array.from(document.querySelectorAll("[data-oauth-step]"));
+  const renderOauth=()=>{
+    const item=oauthStages[oauthIndex];if(!item)return;
+    oauthButtons.forEach((b,i)=>{b.classList.toggle("is-active",i===oauthIndex);b.setAttribute("aria-pressed",String(i===oauthIndex));});
+    document.getElementById("oauth-step-caption").textContent="Шаг "+(oauthIndex+1)+" из 4";
+    document.getElementById("oauth-step-title").textContent=item[0];
+    document.getElementById("oauth-step-description").textContent=item[1];
+    document.getElementById("oauth-step-code").textContent=item[2];
+    document.getElementById("oauth-step-prev").disabled=oauthIndex===0;
+    document.getElementById("oauth-step-next").disabled=oauthIndex===3;
+    document.getElementById("oauth-step-next").textContent=oauthIndex===3?"Последний этап":"Следующий этап";
+  };
+  oauthButtons.forEach(button=>button.addEventListener("click",()=>{oauthIndex=Number(button.dataset.oauthStep);renderOauth();}));
+  const oauthPrev=document.getElementById("oauth-step-prev"),oauthNext=document.getElementById("oauth-step-next");
+  if(oauthPrev&&oauthNext){oauthPrev.addEventListener("click",()=>{oauthIndex=Math.max(0,oauthIndex-1);renderOauth();});oauthNext.addEventListener("click",()=>{oauthIndex=Math.min(3,oauthIndex+1);renderOauth();});renderOauth();}
+
+  // Analytics dashboard: every number below is synthetic course data for the demo.
+  const analyticsData={
+    "7":{enrolled:"47",active:"36",attempts:"935",completed:"14",labels:["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],enrollments:[4,7,6,9,5,8,8],views:[32,46,39,65,52,71,58],modules:[["Введение в тему",39,47],["Основные понятия",31,47],["Практическая работа",18,47]]},
+    "30":{enrolled:"182",active:"126",attempts:"3 816",completed:"64",labels:["1 нед.","2 нед.","3 нед.","4 нед."],enrollments:[34,51,43,54],views:[248,315,286,402],modules:[["Введение в тему",148,182],["Основные понятия",117,182],["Практическая работа",82,182]]},
+    "90":{enrolled:"486",active:"351",attempts:"9 842",completed:"176",labels:["1–3 нед.","4–6 нед.","7–9 нед.","10–12 нед."],enrollments:[104,126,118,138],views:[782,914,861,1102],modules:[["Введение в тему",412,486],["Основные понятия",318,486],["Практическая работа",221,486]]}
+  };
+  const periodSelect=document.getElementById("analytics-period");
+  let chartType="enrollments";
+  function renderAnalytics(){
+    if(!periodSelect)return;
+    const data=analyticsData[periodSelect.value];if(!data)return;
+    document.getElementById("analytics-kpi-enrolled").textContent=data.enrolled;
+    document.getElementById("analytics-kpi-active").textContent=data.active;
+    document.getElementById("analytics-kpi-attempts").textContent=data.attempts;
+    document.getElementById("analytics-kpi-completed").textContent=data.completed;
+    const values=data[chartType],max=Math.max(...values,1),bars=document.getElementById("analytics-chart-bars"),axis=document.getElementById("analytics-chart-axis");
+    bars.replaceChildren();axis.replaceChildren();
+    values.forEach((value,i)=>{
+      const col=document.createElement("div");col.className="analytics-bar-column";
+      const number=document.createElement("span");number.textContent=String(value);
+      const track=document.createElement("div");track.className="analytics-bar-track";
+      const fill=document.createElement("span");fill.className="analytics-bar-fill";fill.style.height=Math.max(5,value/max*100)+"%";fill.title=String(value);
+      track.appendChild(fill);col.append(number,track);bars.appendChild(col);
+      const label=document.createElement("span");label.textContent=data.labels[i];axis.appendChild(label);
+    });
+    const isViews=chartType==="views";
+    document.getElementById("analytics-chart-title").textContent=isViews?"Просмотры шагов курса":"Новые записи на курс";
+    document.getElementById("analytics-chart-subtitle").textContent=periodSelect.value==="7"?"По дням":"По временным интервалам";
+    document.getElementById("analytics-chart-legend").textContent=isViews?"Просмотры шагов":"Новые учащиеся";
+    document.getElementById("analytics-chart").setAttribute("aria-label",(isViews?"Просмотры шагов":"Новые записи")+", "+periodSelect.value+" дней, демонстрационные данные");
+    const list=document.getElementById("analytics-module-list");list.replaceChildren();
+    data.modules.forEach(([title,count,total])=>{
+      const row=document.createElement("div");row.className="analytics-module-row";
+      const text=document.createElement("div"),name=document.createElement("strong"),detail=document.createElement("small");
+      name.textContent=title;detail.textContent=count+" из "+total+" учащихся";text.append(name,detail);
+      const rate=document.createElement("b"),pct=Math.round(count/total*100);rate.textContent=pct+"%";
+      const track=document.createElement("i"),bar=document.createElement("span");bar.style.width=pct+"%";track.appendChild(bar);row.append(text,rate,track);list.appendChild(row);
+    });
+  }
+  if(periodSelect){
+    periodSelect.addEventListener("change",renderAnalytics);
+    document.querySelectorAll("[data-analytics-chart]").forEach(button=>button.addEventListener("click",()=>{
+      chartType=button.dataset.analyticsChart;
+      document.querySelectorAll("[data-analytics-chart]").forEach(item=>{item.classList.toggle("is-active",item===button);item.setAttribute("aria-pressed",String(item===button));});
+      renderAnalytics();
+    }));
+    renderAnalytics();
+  }
+
+  // Download only synthetic CSV values in the paid-course demo state.
+  const analyticsAccess=document.getElementById("analytics-course-access"),analyticsExport=document.getElementById("analytics-export"),analyticsNote=document.getElementById("analytics-export-note");
+  if(analyticsAccess&&analyticsExport&&analyticsNote){
+    analyticsAccess.addEventListener("change",()=>{
+      const paid=analyticsAccess.value==="paid";analyticsExport.disabled=!paid;
+      analyticsNote.textContent=paid?"Демо-экспорт содержит искусственные значения; в Stepik отчёты курса доступны для платных курсов.":"По официальной справке табель и отчёты курса доступны для платных курсов.";
+    });
+    analyticsExport.addEventListener("click",()=>{
+      if(analyticsAccess.value!=="paid")return;
+      const rows=[["Учащийся","Модуль 1","Модуль 2","Модуль 3","Итого"],["Учащийся 01","18/20","14/20","—","32/40"],["Учащийся 02","20/20","18/20","16/20","54/60"],["Учащийся 03","12/20","—","—","12/20"]];
+      const csv="\uFEFF"+rows.map(row=>row.map(cell=>'"'+String(cell).replace(/"/g,'""')+'"').join(";")).join("\r\n");
+      const blob=new Blob([csv],{type:"text/csv;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");
+      link.href=url;link.download="stepik-demo-gradebook.csv";document.body.appendChild(link);link.click();link.remove();URL.revokeObjectURL(url);
+      analyticsNote.textContent="Демонстрационный CSV сохранён локально.";
+    });
+  }
+
   renderQuestion();
   renderPage(getHashPage());
 })();
