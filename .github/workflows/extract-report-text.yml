@@ -1,0 +1,63 @@
+name: Extract report text for review
+
+on:
+  push:
+    branches:
+      - feat/stepic-rework-v2
+    paths:
+      - .github/workflows/extract-report-text.yml
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/stepic-rework-v2
+      - name: Extract DOCX paragraphs and tables
+        shell: bash
+        run: |
+          python - <<'PY'
+          import glob
+          import zipfile
+          import xml.etree.ElementTree as ET
+
+          NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}
+          files = sorted(glob.glob('Практическая №*.docx'))
+          for path in files:
+              print('\\n' + '=' * 100)
+              print('SOURCE:', path)
+              print('=' * 100)
+              with zipfile.ZipFile(path) as doc:
+                  root = ET.fromstring(doc.read('word/document.xml'))
+              body = root.find('w:body', NS)
+              for node in body:
+                  tag = node.tag.rsplit('}', 1)[-1]
+                  if tag == 'p':
+                      parts = []
+                      for el in node.iter():
+                          local = el.tag.rsplit('}', 1)[-1]
+                          if local == 't' and el.text:
+                              parts.append(el.text)
+                          elif local == 'tab':
+                              parts.append('\\t')
+                          elif local in ('br', 'cr'):
+                              parts.append('\\n')
+                      line = ''.join(parts).strip()
+                      if line:
+                          print(line)
+                  elif tag == 'tbl':
+                      print('[ТАБЛИЦА]')
+                      for row in node.findall('.//w:tr', NS):
+                          cells = []
+                          for cell in row.findall('./w:tc', NS):
+                              ps = []
+                              for p in cell.findall('.//w:p', NS):
+                                  ps.append(''.join((t.text or '') for t in p.findall('.//w:t', NS)))
+                              cells.append(' / '.join(x for x in ps if x))
+                          print(' | '.join(cells))
+                      print('[/ТАБЛИЦА]')
+          PY
