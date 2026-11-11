@@ -217,6 +217,19 @@
     updateSidebar();
     if (entered && !isLanding) openSidebar();
     else closeSidebar();
+
+    // Vanta's host is display:none on lesson pages. Re-measure only after
+    // the home page is painted again, otherwise the canvas can keep stale
+    // dimensions and collapse into a small corner.
+    if (isLanding && vantaEffect) {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          if (pages[currentIndex]?.id === "page-1-1" && vantaEffect) {
+            vantaEffect.resize();
+          }
+        });
+      });
+    }
   }
 
   function navigateTo(id) {
@@ -295,6 +308,19 @@
   enterButton.addEventListener("click", enterResource);
   window.addEventListener("hashchange", () => {
     if (entered) renderPage(getHashPage());
+  });
+
+  // Recalculate the WebGL canvas after restoring a backgrounded browser tab.
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState !== "visible" || !entered || !vantaEffect) return;
+    if (pages[currentIndex]?.id !== "page-1-1") return;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        if (document.visibilityState === "visible" && pages[currentIndex]?.id === "page-1-1" && vantaEffect) {
+          vantaEffect.resize();
+        }
+      });
+    });
   });
 
   buildHeaderDropdowns();
