@@ -618,6 +618,456 @@
     });
   });
 
+
+  // Page 2.2: switch the comparison detail without changing the report-based matrix.
+  const analogueProfiles = {
+    stepik: {
+      kind: "Самый близкий аналог по предмету",
+      title: "Создание курса на Stepik: Начальный уровень",
+      strength: "Обучение идёт внутри самой платформы: короткие шаги, тестовые вопросы и практические задачи связаны с реальным интерфейсом Stepik.",
+      limit: "Для прохождения нужна учётная запись; курс из 25 уроков длиннее краткой инструкции на нашем ресурсе.",
+      transfer: "Показывать действие короткими порциями, после объяснения давать вопрос или небольшое практическое действие.",
+      link: "https://stepik.org/course/5207",
+      linkLabel: "Открыть официальный курс Stepik"
+    },
+    moodle: {
+      kind: "Пример последовательного обучения преподавателя",
+      title: "Moodle Academy — Start Teaching with Moodle",
+      strength: "Самостоятельный маршрут для начинающего преподавателя: знакомство с навигацией, учебным пространством и предоставлением доступа учащимся.",
+      limit: "Курс рассчитан примерно на три часа и использует терминологию и организацию Moodle, поэтому сценарии нельзя переносить на Stepik без адаптации.",
+      transfer: "Разбить крупную тему на короткие этапы и явно формулировать цель каждого этапа.",
+      link: "https://moodle.academy/course/view.php?id=34",
+      linkLabel: "Открыть курс Moodle Academy"
+    },
+    openedx: {
+      kind: "Пример обучения через пробную среду",
+      title: "Open edX — Demo Course и Studio Sandbox",
+      strength: "Документация связана с демонстрационным курсом и отдельной песочницей, где можно попробовать инструменты создания структуры курса.",
+      limit: "Нужна отдельная среда и дополнительное знакомство с терминологией; по Практике № 2 тестовые аккаунты и материалы Sandbox удаляются каждые семь дней.",
+      transfer: "Сразу после инструкции предлагать безопасное пробное действие в локальном макете, не изменяющее настоящий курс.",
+      link: "https://docs.openedx.org/en/latest/educators/quickstarts/build_a_course.html",
+      linkLabel: "Открыть руководство Open edX"
+    },
+    canvas: {
+      kind: "Пример обучения внутри LMS",
+      title: "Growing with Canvas",
+      strength: "Самостоятельный курс расположен непосредственно в Canvas, поэтому пользователь осваивает материал в среде самой платформы.",
+      limit: "Для записи требуется вход в Canvas; общий курс не раскрывает особенности конкретной университетской установки.",
+      transfer: "Давать подсказки по навигации в контексте учебной платформы, не перегружая страницу отдельной инструкцией.",
+      link: "https://go.canvas.duke.edu/growing-canvas-course/",
+      linkLabel: "Открыть Growing with Canvas"
+    }
+  };
+  document.querySelectorAll("[data-analogue]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const profile = analogueProfiles[button.dataset.analogue];
+      if (!profile) return;
+      document.querySelectorAll("[data-analogue]").forEach((tab) => {
+        const active = tab === button;
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-pressed", String(active));
+      });
+      document.getElementById("analogue-kind").textContent = profile.kind;
+      document.getElementById("analogue-title").textContent = profile.title;
+      document.getElementById("analogue-strength").textContent = profile.strength;
+      document.getElementById("analogue-limit").textContent = profile.limit;
+      document.getElementById("analogue-transfer").textContent = profile.transfer;
+      const link = document.getElementById("analogue-link");
+      link.href = profile.link;
+      link.textContent = profile.linkLabel;
+    });
+  });
+
+  // Page 3.1: a local-only course-builder prototype based on Stepik's documented flow.
+  const builderRoot = document.getElementById("course-builder-demo");
+  if (builderRoot) {
+    const dashboard = document.getElementById("builder-dashboard");
+    const workspace = document.getElementById("builder-workspace");
+    const modal = document.getElementById("builder-modal");
+    const dialogForm = document.getElementById("builder-dialog-form");
+    const dialogTitle = document.getElementById("builder-dialog-title");
+    const dialogName = document.getElementById("builder-dialog-name");
+    const dialogHint = document.getElementById("builder-dialog-hint");
+    const dialogTypeWrap = document.getElementById("builder-dialog-type-wrap");
+    const dialogType = document.getElementById("builder-dialog-type");
+    const outlineTree = document.getElementById("builder-outline-tree");
+    const editorPanel = document.getElementById("builder-editor-panel");
+    const aboutPanel = document.getElementById("builder-about-panel");
+    const contentPanel = document.getElementById("builder-content-panel");
+    const dialogSubmit = dialogForm.querySelector('button[type="submit"]');
+
+    let builderCourse = null;
+    let builderModules = [];
+    let selectedModuleId = null;
+    let selectedLessonId = null;
+    let dialogMode = "course";
+    let dialogModuleId = null;
+    let dialogLessonId = null;
+    let builderId = 0;
+    let builderPaid = false;
+
+    const nextBuilderId = (prefix) => prefix + "-" + (++builderId);
+    const makeBuilderButton = (label, className, onClick, title) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = className;
+      button.textContent = label;
+      if (title) button.title = title;
+      button.addEventListener("click", onClick);
+      return button;
+    };
+
+    function closeBuilderDialog() {
+      modal.hidden = true;
+      dialogForm.reset();
+      dialogName.setCustomValidity("");
+    }
+
+    function openBuilderDialog(mode, moduleId, lessonId) {
+      dialogMode = mode;
+      dialogModuleId = moduleId || null;
+      dialogLessonId = lessonId || null;
+      dialogTypeWrap.hidden = mode !== "step";
+      dialogName.value = "";
+      dialogName.setCustomValidity("");
+      if (mode === "course") {
+        dialogTitle.textContent = "Новый курс";
+        dialogName.previousSibling.textContent = "";
+        dialogName.placeholder = "Например, Основы анализа данных";
+        dialogHint.textContent = "На первом этапе создания курса Stepik запрашивает только его название. Описание можно заполнить после создания.";
+        dialogSubmit.textContent = "Создать курс";
+      } else if (mode === "module") {
+        dialogTitle.textContent = "Новый модуль";
+        dialogName.placeholder = "Например, Введение";
+        dialogHint.textContent = "Модуль объединяет уроки по одной теме или учебной неделе.";
+        dialogSubmit.textContent = "Добавить модуль";
+      } else if (mode === "lesson") {
+        dialogTitle.textContent = "Новый урок";
+        dialogName.placeholder = "Например, Первые шаги";
+        dialogHint.textContent = "Урок объединяет материалы и практические задания по одной теме.";
+        dialogSubmit.textContent = "Добавить урок";
+      } else {
+        dialogTitle.textContent = "Новый шаг";
+        dialogName.placeholder = "Например, Что такое переменная";
+        dialogHint.textContent = "Выбери формат шага. В одном уроке может быть не более 16 шагов.";
+        dialogSubmit.textContent = "Добавить шаг";
+      }
+      modal.hidden = false;
+      dialogName.focus();
+    }
+
+    function getSelectedModule() {
+      return builderModules.find((module) => module.id === selectedModuleId) || null;
+    }
+    function getSelectedLesson() {
+      const module = getSelectedModule();
+      return module ? module.lessons.find((lesson) => lesson.id === selectedLessonId) || null : null;
+    }
+
+    function renderBuilderOutline() {
+      outlineTree.replaceChildren();
+      if (!builderModules.length) {
+        const empty = document.createElement("p");
+        empty.className = "builder-empty-outline";
+        empty.textContent = "Добавьте первый модуль, чтобы начать собирать курс.";
+        outlineTree.appendChild(empty);
+        return;
+      }
+      builderModules.forEach((module, moduleIndex) => {
+        const moduleCard = document.createElement("div");
+        moduleCard.className = "builder-tree-module" + (module.id === selectedModuleId ? " is-active" : "");
+        const moduleLine = document.createElement("div");
+        moduleLine.className = "builder-tree-module-line";
+        const moduleSelect = makeBuilderButton(
+          (moduleIndex + 1) + ". " + module.title,
+          "builder-tree-select",
+          () => { selectedModuleId = module.id; selectedLessonId = null; renderBuilder(); }
+        );
+        moduleLine.appendChild(moduleSelect);
+        moduleLine.appendChild(makeBuilderButton("＋ Урок", "builder-tree-add", () => openBuilderDialog("lesson", module.id)));
+        moduleCard.appendChild(moduleLine);
+
+        if (module.lessons.length) {
+          const lessonList = document.createElement("div");
+          lessonList.className = "builder-tree-lessons";
+          module.lessons.forEach((lesson, lessonIndex) => {
+            const lessonLine = document.createElement("div");
+            lessonLine.className = "builder-tree-lesson" + (lesson.id === selectedLessonId ? " is-active" : "");
+            const lessonSelect = makeBuilderButton(
+              lessonIndex + 1 + ". " + lesson.title + " · " + lesson.steps.length + "/16",
+              "builder-tree-lesson-select",
+              () => { selectedModuleId = module.id; selectedLessonId = lesson.id; renderBuilder(); }
+            );
+            lessonLine.appendChild(lessonSelect);
+            lessonLine.appendChild(makeBuilderButton("＋", "builder-tree-step-add", () => openBuilderDialog("step", module.id, lesson.id), "Добавить шаг"));
+            lessonList.appendChild(lessonLine);
+          });
+          moduleCard.appendChild(lessonList);
+        } else {
+          const emptyLesson = document.createElement("p");
+          emptyLesson.className = "builder-tree-empty";
+          emptyLesson.textContent = "В модуле пока нет уроков.";
+          moduleCard.appendChild(emptyLesson);
+        }
+        outlineTree.appendChild(moduleCard);
+      });
+    }
+
+    function renderModuleEditor(module) {
+      editorPanel.replaceChildren();
+      const header = document.createElement("div");
+      header.className = "builder-editor-header";
+      const titleWrap = document.createElement("div");
+      const eyebrow = document.createElement("p");
+      eyebrow.className = "builder-eyebrow";
+      eyebrow.textContent = "Настройки содержания";
+      const title = document.createElement("h4");
+      title.textContent = module.title;
+      titleWrap.append(eyebrow, title);
+      header.appendChild(titleWrap);
+      header.appendChild(makeBuilderButton("＋ Добавить урок", "builder-primary-button builder-small-button", () => openBuilderDialog("lesson", module.id)));
+      editorPanel.appendChild(header);
+
+      const note = document.createElement("p");
+      note.className = "builder-editor-note";
+      note.textContent = "В модуле можно разместить любое количество уроков. Для изменения порядка уроков на Stepik используется перетаскивание за маркер слева от названия.";
+      editorPanel.appendChild(note);
+
+      const settings = document.createElement("details");
+      settings.className = "builder-module-settings";
+      const summary = document.createElement("summary");
+      summary.textContent = "Настройки модуля и сроки";
+      settings.appendChild(summary);
+      const settingsBody = document.createElement("div");
+      settingsBody.className = "builder-settings-body";
+
+      const paidNotice = document.createElement("p");
+      paidNotice.className = "builder-settings-note";
+      paidNotice.textContent = builderPaid
+        ? "В демо выбран платный курс: расширенные настройки доступны для пробного изменения."
+        : "В справке Stepik расширенные даты и последовательное открытие модулей обозначены как функции платных курсов.";
+      settingsBody.appendChild(paidNotice);
+
+      const dateFields = [
+        ["Мягкий дедлайн", "softDeadline"],
+        ["Жёсткий дедлайн", "hardDeadline"],
+        ["Дата окончания модуля", "moduleEnd"]
+      ];
+      dateFields.forEach(([label, key]) => {
+        const row = document.createElement("label");
+        row.className = "builder-setting-row";
+        const caption = document.createElement("span");
+        caption.textContent = label;
+        const input = document.createElement("input");
+        input.type = "date";
+        input.value = module.settings[key] || "";
+        input.disabled = !builderPaid;
+        input.addEventListener("change", () => { module.settings[key] = input.value; });
+        row.append(caption, input);
+        settingsBody.appendChild(row);
+      });
+
+      const prerequisiteLabel = document.createElement("label");
+      prerequisiteLabel.className = "builder-setting-row builder-prerequisite-row";
+      const prerequisiteCaption = document.createElement("span");
+      prerequisiteCaption.textContent = "Открыть после модуля";
+      const prerequisite = document.createElement("select");
+      prerequisite.disabled = !builderPaid;
+      const noRequirement = document.createElement("option");
+      noRequirement.value = "";
+      noRequirement.textContent = "Без ограничения";
+      prerequisite.appendChild(noRequirement);
+      builderModules.filter((item) => item.id !== module.id).forEach((item) => {
+        const option = document.createElement("option");
+        option.value = item.id;
+        option.textContent = item.title;
+        prerequisite.appendChild(option);
+      });
+      prerequisite.value = module.settings.requiredModule || "";
+      prerequisite.addEventListener("change", () => { module.settings.requiredModule = prerequisite.value; });
+      prerequisiteLabel.append(prerequisiteCaption, prerequisite);
+      settingsBody.appendChild(prerequisiteLabel);
+
+      if (!builderPaid) {
+        const locked = document.createElement("p");
+        locked.className = "builder-locked-note";
+        locked.textContent = "Переключи тип курса на «Платный · демо», чтобы увидеть работу этих полей. Это не меняет реальный курс.";
+        settingsBody.appendChild(locked);
+      }
+      settings.appendChild(settingsBody);
+      editorPanel.appendChild(settings);
+      editorPanel.appendChild(makeBuilderButton("＋ Добавить урок в этот модуль", "builder-outline-button builder-add-lesson-wide", () => openBuilderDialog("lesson", module.id)));
+    }
+
+    function renderLessonEditor(module, lesson) {
+      editorPanel.replaceChildren();
+      const header = document.createElement("div");
+      header.className = "builder-editor-header";
+      const titleWrap = document.createElement("div");
+      const eyebrow = document.createElement("p");
+      eyebrow.className = "builder-eyebrow";
+      eyebrow.textContent = module.title + " / Урок";
+      const title = document.createElement("h4");
+      title.textContent = lesson.title;
+      titleWrap.append(eyebrow, title);
+      header.appendChild(titleWrap);
+      const addStep = makeBuilderButton(
+        lesson.steps.length >= 16 ? "Достигнут лимит шагов" : "＋ Добавить шаг",
+        "builder-primary-button builder-small-button",
+        () => openBuilderDialog("step", module.id, lesson.id)
+      );
+      addStep.disabled = lesson.steps.length >= 16;
+      header.appendChild(addStep);
+      editorPanel.appendChild(header);
+
+      const note = document.createElement("p");
+      note.className = "builder-editor-note";
+      note.textContent = "Добавляй теоретические шаги, видео и практические задачи. В одном уроке допускается до 16 шагов.";
+      editorPanel.appendChild(note);
+
+      const list = document.createElement("div");
+      list.className = "builder-step-list";
+      if (!lesson.steps.length) {
+        const empty = document.createElement("p");
+        empty.className = "builder-tree-empty";
+        empty.textContent = "В этом уроке пока нет шагов.";
+        list.appendChild(empty);
+      } else {
+        lesson.steps.forEach((step, index) => {
+          const row = document.createElement("div");
+          row.className = "builder-step-row";
+          const number = document.createElement("span");
+          number.className = "builder-step-number";
+          number.textContent = String(index + 1);
+          const main = document.createElement("div");
+          const name = document.createElement("strong");
+          name.textContent = step.title;
+          const type = document.createElement("small");
+          type.textContent = step.typeLabel;
+          main.append(name, type);
+          row.append(number, main);
+          list.appendChild(row);
+        });
+      }
+      editorPanel.appendChild(list);
+    }
+
+    function renderBuilder() {
+      dashboard.hidden = Boolean(builderCourse);
+      workspace.hidden = !builderCourse;
+      if (!builderCourse) return;
+
+      document.getElementById("builder-course-heading").textContent = builderCourse.title;
+      const descriptionInput = document.getElementById("builder-course-description-input");
+      if (descriptionInput && document.activeElement !== descriptionInput) descriptionInput.value = builderCourse.description;
+      document.getElementById("builder-course-type").value = builderPaid ? "paid" : "free";
+      renderBuilderOutline();
+
+      const module = getSelectedModule();
+      const lesson = getSelectedLesson();
+      if (lesson && module) renderLessonEditor(module, lesson);
+      else if (module) renderModuleEditor(module);
+      else {
+        editorPanel.replaceChildren();
+        const empty = document.createElement("div");
+        empty.className = "builder-editor-empty";
+        const step = document.createElement("span");
+        step.textContent = "01";
+        const title = document.createElement("h4");
+        title.textContent = "Содержание курса";
+        const description = document.createElement("p");
+        description.textContent = builderModules.length ? "Выбери модуль или создай новый." : "Создай первый модуль в панели слева. Затем добавь в него уроки и шаги.";
+        empty.append(step, title, description);
+        editorPanel.appendChild(empty);
+      }
+    }
+
+    function createBuilderCourse(name) {
+      builderCourse = { title: name, description: "" };
+      builderModules = [];
+      selectedModuleId = null;
+      selectedLessonId = null;
+      builderPaid = false;
+      renderBuilder();
+    }
+
+    document.getElementById("builder-new-course").addEventListener("click", () => openBuilderDialog("course"));
+    document.getElementById("builder-empty-create").addEventListener("click", () => openBuilderDialog("course"));
+    document.getElementById("builder-add-module").addEventListener("click", () => openBuilderDialog("module"));
+    document.getElementById("builder-dialog-close").addEventListener("click", closeBuilderDialog);
+    document.getElementById("builder-dialog-cancel").addEventListener("click", closeBuilderDialog);
+    modal.addEventListener("click", (event) => { if (event.target === modal) closeBuilderDialog(); });
+
+    dialogForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const name = dialogName.value.trim();
+      if (!name) { dialogName.focus(); return; }
+      if (dialogMode === "course") {
+        createBuilderCourse(name);
+      } else if (dialogMode === "module") {
+        const module = {
+          id: nextBuilderId("module"),
+          title: name,
+          lessons: [],
+          settings: { softDeadline: "", hardDeadline: "", moduleEnd: "", requiredModule: "" }
+        };
+        builderModules.push(module);
+        selectedModuleId = module.id;
+        selectedLessonId = null;
+        renderBuilder();
+      } else if (dialogMode === "lesson") {
+        const module = builderModules.find((item) => item.id === dialogModuleId);
+        if (!module) return;
+        const lesson = { id: nextBuilderId("lesson"), title: name, steps: [] };
+        module.lessons.push(lesson);
+        selectedModuleId = module.id;
+        selectedLessonId = lesson.id;
+        renderBuilder();
+      } else if (dialogMode === "step") {
+        const module = builderModules.find((item) => item.id === dialogModuleId);
+        const lesson = module?.lessons.find((item) => item.id === dialogLessonId);
+        if (!lesson || lesson.steps.length >= 16) return;
+        const typeMap = {
+          text: "Теория · текст",
+          video: "Видео",
+          task: "Практическая задача"
+        };
+        lesson.steps.push({
+          id: nextBuilderId("step"),
+          title: name,
+          type: dialogType.value,
+          typeLabel: typeMap[dialogType.value] || "Учебный шаг"
+        });
+        selectedModuleId = module.id;
+        selectedLessonId = lesson.id;
+        renderBuilder();
+      }
+      closeBuilderDialog();
+    });
+
+    document.getElementById("builder-course-type").addEventListener("change", (event) => {
+      builderPaid = event.target.value === "paid";
+      renderBuilder();
+    });
+    document.querySelectorAll("[data-builder-tab]").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        document.querySelectorAll("[data-builder-tab]").forEach((item) => item.classList.toggle("is-active", item === tab));
+        const about = tab.dataset.builderTab === "about";
+        aboutPanel.hidden = !about;
+        contentPanel.hidden = about;
+      });
+    });
+    document.getElementById("builder-course-description-input").addEventListener("input", (event) => {
+      if (builderCourse) builderCourse.description = event.target.value;
+    });
+    document.getElementById("builder-save-description").addEventListener("click", () => {
+      document.getElementById("builder-description-feedback").textContent = "Описание сохранено в демонстрационном курсе.";
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !modal.hidden) closeBuilderDialog();
+    });
+  }
+
   renderQuestion();
   renderPage(getHashPage());
 })();

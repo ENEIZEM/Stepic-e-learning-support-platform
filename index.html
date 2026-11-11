@@ -336,10 +336,86 @@
           </div>
         </article>
       </section>
-      <section class="page page-article" id="page-2-2" data-section="2" data-title="Сравнение с аналогами" aria-labelledby="title-2-2">
+            <section class="page page-article" id="page-2-2" data-section="2" data-title="Сравнение с аналогами" aria-labelledby="title-2-2">
         <article class="article">
-          <div class="article-heading"><p class="section-kicker"><span class="section-label">Общие сведения о платформе</span></p><h1 id="title-2-2">Сравнение с аналогами</h1></div>
-          <p class="placeholder">Материал будет добавлен на следующем этапе разработки.</p>
+          <div class="article-heading">
+            <p class="section-kicker"><span class="section-label">Общие сведения о платформе</span></p>
+            <h1 id="title-2-2">Сравнение с аналогами</h1>
+            <p class="article-lead">Сравним не просто LMS, а четыре учебных решения, которые показывают разные способы знакомить пользователя с образовательной платформой.</p>
+          </div>
+
+          <div class="article-body comparison-page-content">
+            <div class="comparison-method-note">
+              <strong>Как проводилось сравнение</strong>
+              <p>Критерии из Практики № 2: последовательность обучения, интерактивность, понятность навигации, самостоятельное прохождение, требования к учётной записи и близость к задаче проекта. Сравнение качественное: это не замеры скорости загрузки и не рейтинг платформ.</p>
+            </div>
+
+            <div class="comparison-platform-selector">
+              <div>
+                <h2>Четыре рассмотренных решения</h2>
+                <p class="section-intro">Выбери платформу, чтобы увидеть её сильную сторону, ограничение и идею для нашего ресурса.</p>
+              </div>
+              <div class="comparison-tabs" role="group" aria-label="Выбор образовательного решения">
+                <button type="button" class="comparison-tab is-active" data-analogue="stepik" aria-pressed="true">Stepik</button>
+                <button type="button" class="comparison-tab" data-analogue="moodle" aria-pressed="false">Moodle Academy</button>
+                <button type="button" class="comparison-tab" data-analogue="openedx" aria-pressed="false">Open edX</button>
+                <button type="button" class="comparison-tab" data-analogue="canvas" aria-pressed="false">Canvas</button>
+              </div>
+              <div class="comparison-detail-panel" aria-live="polite">
+                <div class="comparison-detail-heading">
+                  <span class="comparison-detail-kicker" id="analogue-kind">Самый близкий аналог по предмету</span>
+                  <h3 id="analogue-title">Создание курса на Stepik: Начальный уровень</h3>
+                </div>
+                <div class="comparison-detail-columns">
+                  <div><strong>Сильная сторона</strong><p id="analogue-strength">Обучение идёт внутри самой платформы: короткие шаги, тестовые вопросы и практические задачи связаны с реальным интерфейсом Stepik.</p></div>
+                  <div><strong>Ограничение</strong><p id="analogue-limit">Для прохождения нужна учётная запись; курс из 25 уроков длиннее краткой инструкции на нашем ресурсе.</p></div>
+                  <div><strong>Что перенести</strong><p id="analogue-transfer">Показывать действие короткими порциями, после объяснения давать вопрос или небольшое практическое действие.</p></div>
+                </div>
+                <a class="comparison-detail-link" id="analogue-link" href="https://stepik.org/course/5207" target="_blank" rel="noopener noreferrer">Открыть официальный курс Stepik</a>
+              </div>
+            </div>
+
+            <div class="comparison-table-section">
+              <h2>Сравнительная матрица</h2>
+              <p class="section-intro">Сведения сведены по четырём решениям из отчёта Практики № 2. Формулировки отражают опубликованный формат курсов и доступ к ним.</p>
+              <div class="comparison-table-wrap" role="region" aria-label="Сравнительная таблица образовательных решений" tabindex="0">
+                <table class="comparison-table">
+                  <thead>
+                    <tr><th scope="col">Критерий</th><th scope="col">Stepik</th><th scope="col">Moodle Academy</th><th scope="col">Open edX</th><th scope="col">Canvas</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><th scope="row">Ближайшая задача</th><td>Создание курса на Stepik</td><td>Освоение преподавания в Moodle</td><td>Создание структуры в Open edX Studio</td><td>Общее знакомство с Canvas</td></tr>
+                    <tr><th scope="row">Форма обучения</th><td>25 уроков, 28 тестов, 2 интерактивные задачи; 13 минут видео</td><td>Самостоятельный начальный курс, около 3 часов</td><td>Пошаговая документация, Demo Course и Studio Sandbox</td><td>Самостоятельный курс внутри Canvas</td></tr>
+                    <tr><th scope="row">Интерактивность</th><td>Тестовые шаги и интерактивные задачи</td><td>Учебные действия в рамках курса</td><td>Проба инструментов создания курса в отдельной среде</td><td>Прохождение учебного маршрута в LMS</td></tr>
+                    <tr><th scope="row">Навигация</th><td>Нативная структура уроков и шагов Stepik</td><td>Маршрут Moodle Teaching Basics</td><td>Документация связана с инструментами Studio</td><td>Запись на курс выполняется через Canvas</td></tr>
+                    <tr><th scope="row">Доступ и ограничения</th><td>Курс бесплатный; требуется регистрация. Нет дедлайнов и экзамена</td><td>Курс для начинающих; терминология относится к Moodle</td><td>Нужна отдельная среда; тестовые аккаунты и содержимое Sandbox удаляются каждые 7 дней</td><td>Для записи нужен вход в Canvas; общий курс не учитывает особенности конкретной установки</td></tr>
+                    <tr><th scope="row">Что полезно проекту</th><td>Короткие шаги, вопросы и проверка ответа</td><td>Понятная последовательность и учебные цели</td><td>Связь инструкции с пробным действием</td><td>Подсказки по навигации внутри самой платформы</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="source-caption">Примечание: Moodle Academy, Open edX и Canvas рассматриваются как обучающие решения, а не как прямые аналоги Stepik по всему набору функций.</p>
+            </div>
+
+            <div class="comparison-conclusion">
+              <div class="comparison-conclusion-mark">Вывод</div>
+              <div>
+                <h2>Какой подход подходит нашему СМИОР</h2>
+                <p>Stepik — наиболее близкий аналог по теме и интерфейсу. Moodle Academy показывает ценность последовательного маршрута, Open edX — практики в отдельной песочнице, Canvas — обучения прямо внутри LMS. Для собственного ресурса объединяем эти приёмы: короткое объяснение → схема или иллюстрация → безопасное действие → обратная связь → переход к связанной теме.</p>
+              </div>
+            </div>
+
+            <div class="source-block">
+              <strong>Источники</strong>
+              <ul>
+                <li><a href="https://stepik.org/course/5207" target="_blank" rel="noopener noreferrer">Stepik — «Создание курса на Stepik: Начальный уровень»</a>.</li>
+                <li><a href="https://help.stepik.org/article/54718" target="_blank" rel="noopener noreferrer">Stepik Help Center — краткий гид для преподавателей</a>.</li>
+                <li><a href="https://moodle.academy/course/view.php?id=34" target="_blank" rel="noopener noreferrer">Moodle Academy — Start Teaching with Moodle</a>.</li>
+                <li><a href="https://docs.openedx.org/en/latest/educators/quickstarts/build_a_course.html" target="_blank" rel="noopener noreferrer">Open edX — Quick Start: Build a Course</a>.</li>
+                <li><a href="https://go.canvas.duke.edu/growing-canvas-course/" target="_blank" rel="noopener noreferrer">Duke University — Growing with Canvas</a>.</li>
+              </ul>
+              <p class="source-caption">Выбор аналогов, критерии, ограничения и рекомендации перенесены из Практики № 2. Официальные страницы приведены как первичные источники.</p>
+            </div>
+          </div>
         </article>
       </section>
       <section class="page page-article" id="page-2-3" data-section="2" data-title="Интеграция и API" aria-labelledby="title-2-3">
@@ -349,10 +425,119 @@
         </article>
       </section>
 
-      <section class="page page-article" id="page-3-1" data-section="3" data-title="Конструктор курсов" aria-labelledby="title-3-1">
+            <section class="page page-article" id="page-3-1" data-section="3" data-title="Конструктор курсов" aria-labelledby="title-3-1">
         <article class="article">
-          <div class="article-heading"><p class="section-kicker"><span class="section-label">Курсы и аналитика</span></p><h1 id="title-3-1">Конструктор курсов</h1></div>
-          <p class="placeholder">Материал будет добавлен на следующем этапе разработки.</p>
+          <div class="article-heading">
+            <p class="section-kicker"><span class="section-label">Курсы и аналитика</span></p>
+            <h1 id="title-3-1">Конструктор курсов</h1>
+            <p class="article-lead">В конструкторе преподаватель задаёт название курса, формирует модули, добавляет уроки и наполняет их шагами — теорией, видео и практическими задачами.</p>
+          </div>
+
+          <div class="article-body constructor-page-content">
+            <div class="constructor-structure-strip">
+              <div><span>Курс</span><strong>Общая тема</strong></div><b>›</b>
+              <div><span>Модуль</span><strong>Тематический блок</strong></div><b>›</b>
+              <div><span>Урок</span><strong>Одна тема</strong></div><b>›</b>
+              <div><span>Шаг</span><strong>Материал или задача</strong></div>
+            </div>
+            <p>Схема соответствует справке Stepik: курс объединяет модули, модуль — уроки, урок — шаги. В одном уроке может быть до 16 шагов; в курс можно включать как новые, так и ранее созданные уроки.</p>
+
+            <div class="constructor-learning-path">
+              <h2>Сценарий автора курса</h2>
+              <ol>
+                <li><strong>Открыть «Преподавание».</strong> Для создания нового курса используется кнопка «Новый курс».</li>
+                <li><strong>Задать название.</strong> На первом экране создания требуется только название курса; описание и другие сведения редактируются после создания.</li>
+                <li><strong>Открыть содержание.</strong> В редакторе нажать «Редактировать содержание», затем создать первый модуль.</li>
+                <li><strong>Добавить уроки.</strong> В модуль можно добавить новый урок или выбрать существующий из списка.</li>
+                <li><strong>Собрать шаги урока.</strong> Добавить текстовую теорию, видео или практические задачи; порядок шагов формирует учебный маршрут.</li>
+                <li><strong>Настроить модуль и публикацию.</strong> Проверить сроки, доступ и чек-лист публикации. Часть расширенных настроек доступна только для платных курсов.</li>
+              </ol>
+            </div>
+
+            <div class="constructor-demo-intro">
+              <div>
+                <h2>Попробуй собрать курс</h2>
+                <p class="section-intro">Это локальная учебная имитация кабинета автора. Создай курс, добавь модуль, урок и шаг, чтобы увидеть, как строится содержание.</p>
+              </div>
+              <span class="demo-status-label">Демо без аккаунта</span>
+            </div>
+
+            <div class="builder-demo-shell" id="course-builder-demo">
+              <div class="builder-topbar">
+                <div class="builder-brand"><span class="builder-brand-mark">S</span><span>stepik</span></div>
+                <nav class="builder-topnav" aria-label="Навигация демонстрационного кабинета"><span>Каталог</span><span>Мои курсы</span><strong>Преподавание</strong></nav>
+                <span class="builder-user-chip">Автор</span>
+              </div>
+              <div class="builder-dashboard" id="builder-dashboard">
+                <div class="builder-dashboard-heading">
+                  <div><p class="builder-eyebrow">Личный кабинет автора</p><h3>Преподавание</h3><p>Создавайте курсы и уроки, управляйте учебным содержанием.</p></div>
+                  <button type="button" class="builder-primary-button" id="builder-new-course">＋ Новый курс</button>
+                </div>
+                <div class="builder-empty-card">
+                  <div class="builder-empty-icon">＋</div>
+                  <h4>Пока нет учебных курсов</h4>
+                  <p>Начните с названия курса. После создания можно будет заполнить описание и собрать содержание.</p>
+                  <button type="button" class="builder-outline-button" id="builder-empty-create">Создать курс</button>
+                </div>
+              </div>
+
+              <div class="builder-workspace" id="builder-workspace" hidden>
+                <div class="builder-workspace-heading">
+                  <div><p class="builder-eyebrow">Преподавание / Мои курсы</p><h3 id="builder-course-heading">Новый курс</h3></div>
+                  <span class="builder-draft-pill">Черновик</span>
+                </div>
+                <div class="builder-course-toolbar">
+                  <button type="button" class="builder-toolbar-tab is-active" data-builder-tab="content">Содержание</button>
+                  <button type="button" class="builder-toolbar-tab" data-builder-tab="about">Описание курса</button>
+                  <label class="builder-course-type-label">Тип курса
+                    <select id="builder-course-type"><option value="free">Бесплатный</option><option value="paid">Платный · демо</option></select>
+                  </label>
+                </div>
+                <div class="builder-course-description" id="builder-about-panel" hidden>
+                  <label for="builder-course-description-input">Описание курса</label>
+                  <textarea id="builder-course-description-input" rows="3" placeholder="Кратко опишите цель курса и чему научится учащийся."></textarea>
+                  <div class="builder-inline-actions"><button type="button" class="builder-primary-button builder-small-button" id="builder-save-description">Сохранить описание</button><span id="builder-description-feedback" role="status">Изменения сохраняются только в этом демо.</span></div>
+                </div>
+                <div class="builder-workspace-grid" id="builder-content-panel">
+                  <aside class="builder-outline-panel">
+                    <div class="builder-panel-heading"><strong>Содержание курса</strong><button type="button" class="builder-text-button" id="builder-add-module">＋ Модуль</button></div>
+                    <div class="builder-outline-tree" id="builder-outline-tree"><p class="builder-empty-outline">Добавьте первый модуль, чтобы начать собирать курс.</p></div>
+                  </aside>
+                  <section class="builder-editor-panel" id="builder-editor-panel" aria-live="polite">
+                    <div class="builder-editor-empty"><span>01</span><h4>Структура курса</h4><p>Создайте модуль слева. Внутри него можно будет добавить урок, а в урок — шаги.</p></div>
+                  </section>
+                </div>
+              </div>
+
+              <div class="builder-modal" id="builder-modal" hidden>
+                <div class="builder-modal-card" role="dialog" aria-modal="true" aria-labelledby="builder-dialog-title">
+                  <form id="builder-dialog-form">
+                    <div class="builder-modal-heading"><div><p class="builder-eyebrow">Действие в конструкторе</p><h3 id="builder-dialog-title">Новый курс</h3></div><button type="button" class="builder-modal-close" id="builder-dialog-close" aria-label="Закрыть окно">×</button></div>
+                    <label class="builder-dialog-label" for="builder-dialog-name">Название<input id="builder-dialog-name" type="text" required maxlength="100" placeholder="Например, Основы веб-разработки"></label>
+                    <label class="builder-dialog-label" id="builder-dialog-type-wrap" for="builder-dialog-type" hidden>Тип шага<select id="builder-dialog-type"><option value="text">Теория · текст</option><option value="video">Видео</option><option value="task">Практическая задача</option></select></label>
+                    <p class="builder-dialog-hint" id="builder-dialog-hint">На первом этапе создания Stepik просит указать только название курса.</p>
+                    <div class="builder-modal-actions"><button type="button" class="builder-outline-button" id="builder-dialog-cancel">Отмена</button><button type="submit" class="builder-primary-button">Создать</button></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="constructor-notes-grid">
+              <div class="constructor-note-card"><strong>Шаги урока</strong><p>В одном уроке допускается до 16 шагов. Это могут быть текст, видео или практические задания различных типов.</p></div>
+              <div class="constructor-note-card"><strong>Даты и зависимости</strong><p>Мягкие и жёсткие дедлайны, дата завершения и последовательное открытие модулей зависят от типа курса; в справке Stepik эти расширенные настройки отмечены как функции платных курсов.</p></div>
+            </div>
+
+            <div class="source-block">
+              <strong>Официальная документация</strong>
+              <ul>
+                <li><a href="https://help.stepik.org/article/54788" target="_blank" rel="noopener noreferrer">Как создать урок и курс</a>.</li>
+                <li><a href="https://help.stepik.org/article/54789" target="_blank" rel="noopener noreferrer">Структура курса и её создание</a>.</li>
+                <li><a href="https://help.stepik.org/article/54718" target="_blank" rel="noopener noreferrer">Краткий гид для преподавателей</a>.</li>
+                <li><a href="https://teach.stepik.org/" target="_blank" rel="noopener noreferrer">Stepik Teach Center</a>.</li>
+              </ul>
+              <p class="source-caption">Мокап повторяет документированные элементы и последовательность действий, но не подключается к реальному аккаунту Stepik.</p>
+            </div>
+          </div>
         </article>
       </section>
       <section class="page page-article" id="page-3-2" data-section="3" data-title="Статистика и аналитика" aria-labelledby="title-3-2">
