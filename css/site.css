@@ -3654,3 +3654,33 @@ body.sidebar-open { overflow: auto; }
   .course-card-body h3 { font-size:18px; }
   .task-type-detail { padding:17px; }
 }
+
+
+/* Improve legibility in the earlier informational cards and demos too. */
+.article-body .audience-card h3,
+.article-body .history-fact-card h3 { font-size:16px; }
+.article-body .audience-card p,
+.article-body .history-fact-card p,
+.article-body .history-timeline-detail > p:not(.history-detail-period),
+.article-body .structure-detail > p:not(.structure-detail-eyebrow),
+.article-body .enroll-demo-copy p:not(.enroll-demo-category),
+.article-body .enroll-demo-hint,
+.article-body .demo-disclaimer,
+.article-body .history-metric span { font-size:13px; line-height:1.75; }
+.article-body .partner-group h3 { font-size:15px; }
+.article-body .partner-chips span { font-size:12px; line-height:1.55; }
+.article-body .history-timeline-tab { padding:14px 16px; }
+.article-body .history-timeline-tab > span { font-size:15px; }
+.article-body .history-timeline-tab small { font-size:12px; line-height:1.5; }
+.article-body .history-detail-period { font-size:12px; }
+.article-body .history-metric strong { font-size:36px; }
+.article-body .structure-detail h3 { font-size:22px; }
+.article-body .structure-detail-example { font-size:13px; line-height:1.6; }
+.article-body .enroll-demo-category { font-size:12px; }
+.article-body .enroll-demo-meta { font-size:12px; }
+.article-body .enroll-demo-copy h3 { font-size:21px; }
+.article-body .course-card-meta { font-size:12px; }
+.article-body .course-free-label { font-size:13px; }
+.article-body .task-type-guidelines strong { font-size:15px; }
+.article-body .task-type-guidelines p,
+.article-body .task-author-note p { font-size:14px; line-height:1.75; }
