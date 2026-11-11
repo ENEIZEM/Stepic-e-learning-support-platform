@@ -128,23 +128,212 @@
         </div>
       </section>
 
-      <section class="page page-article" id="page-1-2" data-section="1" data-title="Что такое Stepic" aria-labelledby="title-1-2">
+            <section class="page page-article" id="page-1-2" data-section="1" data-title="Что такое Stepic" aria-labelledby="title-1-2">
         <article class="article">
           <div class="article-heading">
             <p class="section-kicker"><span class="section-label">Введение</span></p>
             <h1 id="title-1-2">Что такое Stepic</h1>
+            <p class="article-lead">Stepik — образовательная платформа и конструктор онлайн-курсов. Здесь учебные материалы объединяются с практическими заданиями и проверкой результатов.</p>
           </div>
-          <div class="article-body">
-            <p>Stepic — платформа электронного обучения для создания и прохождения онлайн-курсов. Учебный материал организуется в курсы, уроки и отдельные шаги.</p>
-            <p>Шаг курса может содержать текст, видео, проверочные вопросы или практическое задание. В зависимости от формата ответ проверяется автоматически либо оценивается другими участниками.</p>
+
+          <div class="article-body intro-page-content">
+            <section class="content-section">
+              <h2>От MOOC к интерактивному обучению</h2>
+              <p><strong>MOOC</strong> (Massive Open Online Course) — массовый открытый онлайн-курс. Такой формат позволяет учиться дистанционно, обращаться к материалам через интернет и проходить программу вместе с большим числом слушателей.</p>
+              <p>Stepik развивает эту модель как платформу для двух сторон обучения: учащиеся проходят курсы, а авторы и преподаватели создают учебные материалы, организуют практику и отслеживают прогресс. Курс может включать текст, видео и задания с автоматической или ручной проверкой.</p>
+              <div class="info-note">
+                <strong>Важно понимать слово «открытый».</strong>
+                <span>Оно описывает доступность онлайн-обучения для широкой аудитории, но не означает, что абсолютно каждый курс бесплатный. На Stepik есть бесплатные и платные курсы.</span>
+              </div>
+            </section>
+
+            <section class="content-section">
+              <div class="section-title-row">
+                <div>
+                  <h2>Как устроен курс</h2>
+                  <p class="section-intro">Выбери элемент схемы, чтобы посмотреть, из чего складывается обучение.</p>
+                </div>
+                <span class="source-tag">Модель Stepik</span>
+              </div>
+              <div class="course-structure-demo" id="course-structure-demo">
+                <div class="structure-levels" role="group" aria-label="Уровни структуры курса">
+                  <button class="structure-level is-active" type="button" data-course-level="course" aria-pressed="true">
+                    <span class="structure-level-number">01</span><span>Курс</span>
+                  </button>
+                  <span class="structure-connector" aria-hidden="true">›</span>
+                  <button class="structure-level" type="button" data-course-level="module" aria-pressed="false">
+                    <span class="structure-level-number">02</span><span>Модуль</span>
+                  </button>
+                  <span class="structure-connector" aria-hidden="true">›</span>
+                  <button class="structure-level" type="button" data-course-level="lesson" aria-pressed="false">
+                    <span class="structure-level-number">03</span><span>Урок</span>
+                  </button>
+                  <span class="structure-connector" aria-hidden="true">›</span>
+                  <button class="structure-level" type="button" data-course-level="step" aria-pressed="false">
+                    <span class="structure-level-number">04</span><span>Шаг</span>
+                  </button>
+                </div>
+                <div class="structure-detail" aria-live="polite">
+                  <p class="structure-detail-eyebrow" id="course-level-eyebrow">Уровень 1</p>
+                  <h3 id="course-level-title">Курс</h3>
+                  <p id="course-level-description">Объединяет уроки вокруг общей темы и задаёт учебную траекторию. Курсы могут содержать несколько тематических модулей.</p>
+                  <div class="structure-detail-example" id="course-level-example">Пример: «Основы анализа данных»</div>
+                </div>
+              </div>
+              <p class="source-caption">По справке Stepik: курс состоит из модулей, модули — из уроков, уроки — из шагов. В одном уроке может быть до 16 шагов.</p>
+              <p class="source-link-line">Подробнее: <a href="https://help.stepik.org/article/54789" target="_blank" rel="noopener noreferrer">«Структура курса и её создание» в Справочном центре Stepik</a>.</p>
+            </section>
+
+            <section class="content-section">
+              <h2>Попробуй сценарий учащегося</h2>
+              <p>На настоящей платформе пользователь открывает страницу курса, знакомится с описанием и выбирает действие для записи. Ниже — локальная демонстрация одного состояния карточки курса.</p>
+              <div class="stepik-enroll-demo" id="stepik-enroll-demo">
+                <div class="enroll-demo-topline"><span class="enroll-demo-brand"><span class="enroll-demo-brand-mark">S</span> stepik</span><span class="enroll-demo-label">Учебный макет карточки</span></div>
+                <div class="enroll-demo-main">
+                  <div class="enroll-demo-icon" aria-hidden="true">∑</div>
+                  <div class="enroll-demo-copy">
+                    <p class="enroll-demo-category">Программирование · Начальный уровень</p>
+                    <h3>Основы анализа данных</h3>
+                    <p>Познакомьтесь с данными, научитесь читать таблицы и строить первые выводы на практических примерах.</p>
+                    <div class="enroll-demo-meta"><span>12 уроков</span><span>•</span><span>С заданиями</span><span>•</span><span>В своём темпе</span></div>
+                  </div>
+                </div>
+                <div class="enroll-demo-actions">
+                  <button class="demo-primary-button" type="button" id="course-enroll-demo">Поступить на курс</button>
+                  <span class="enroll-demo-hint" id="course-enroll-feedback" role="status" aria-live="polite">Нажми кнопку, чтобы увидеть состояние после записи.</span>
+                </div>
+              </div>
+              <p class="demo-disclaimer">Это демонстрационный макет: нажатие меняет состояние только на этой странице и не создаёт реальную запись на Stepik.</p>
+            </section>
+
+            <section class="content-section">
+              <h2>Кому подходит платформа</h2>
+              <div class="audience-grid">
+                <article class="audience-card">
+                  <span class="audience-card-icon">01</span>
+                  <h3>Учащимся</h3>
+                  <p>Для самостоятельного изучения тем, выполнения заданий, повторения материала и движения по программе курса.</p>
+                </article>
+                <article class="audience-card">
+                  <span class="audience-card-icon">02</span>
+                  <h3>Преподавателям и авторам</h3>
+                  <p>Для публикации учебных материалов, построения структуры курса, настройки задач и анализа результатов.</p>
+                </article>
+                <article class="audience-card">
+                  <span class="audience-card-icon">03</span>
+                  <h3>Образовательным организациям</h3>
+                  <p>Для размещения программ обучения, организации дистанционной практики и поддержки учебных сообществ.</p>
+                </article>
+              </div>
+            </section>
+
+            <div class="source-block">
+              <strong>Источники и дальнейшее чтение</strong>
+              <ul>
+                <li><a href="https://help.stepik.org/article/54716" target="_blank" rel="noopener noreferrer">Общая информация о Stepik</a>.</li>
+                <li><a href="https://help.stepik.org/article/54789" target="_blank" rel="noopener noreferrer">Структура курса и её создание</a>.</li>
+                <li><a href="https://teach.stepik.org/" target="_blank" rel="noopener noreferrer">Teach Center — возможности для авторов курсов</a>.</li>
+              </ul>
+              <p class="source-caption">Официальные страницы Stepik; ссылки проверены при подготовке материала.</p>
+            </div>
           </div>
         </article>
       </section>
-
-      <section class="page page-article" id="page-2-1" data-section="2" data-title="История создания" aria-labelledby="title-2-1">
+            <section class="page page-article" id="page-2-1" data-section="2" data-title="История создания" aria-labelledby="title-2-1">
         <article class="article">
-          <div class="article-heading"><p class="section-kicker"><span class="section-label">Общие сведения о платформе</span></p><h1 id="title-2-1">История создания</h1></div>
-          <p class="placeholder">Материал будет добавлен на следующем этапе разработки.</p>
+          <div class="article-heading">
+            <p class="section-kicker"><span class="section-label">Общие сведения о платформе</span></p>
+            <h1 id="title-2-1">История создания и развития</h1>
+            <p class="article-lead">Stepik появился в 2013 году как образовательная платформа, а затем стал средой для самостоятельных курсов, программ университетов и образовательных проектов компаний.</p>
+          </div>
+
+          <div class="article-body history-page-content">
+            <section class="content-section">
+              <h2>Ключевые этапы</h2>
+              <p class="section-intro">Выбери этап временной шкалы. В карточке появится пояснение и источник сведений.</p>
+              <div class="history-timeline-demo" id="history-timeline-demo">
+                <div class="history-timeline-tabs" role="group" aria-label="Этапы истории Stepik">
+                  <button type="button" class="history-timeline-tab is-active" data-history-event="launch" aria-pressed="true"><span>2013</span><small>Запуск</small></button>
+                  <button type="button" class="history-timeline-tab" data-history-event="events" aria-pressed="false"><span>2016–2024</span><small>Образовательные события</small></button>
+                  <button type="button" class="history-timeline-tab" data-history-event="scale" aria-pressed="false"><span>2023</span><small>Масштаб платформы</small></button>
+                </div>
+                <div class="history-timeline-detail" aria-live="polite">
+                  <p class="history-detail-period" id="history-detail-period">2013 · Основание платформы</p>
+                  <h3 id="history-detail-title">Появление Stepik</h3>
+                  <p id="history-detail-description">Справочный центр Stepik указывает 2013 год как год создания платформы. С этого момента сервис развивается как среда для онлайн-обучения и конструирования курсов.</p>
+                  <p class="source-link-line" id="history-detail-source">Источник: <a href="https://help.stepik.org/article/54716" target="_blank" rel="noopener noreferrer">Общая информация о Stepik</a>.</p>
+                </div>
+              </div>
+            </section>
+
+            <section class="content-section">
+              <h2>Образовательная экосистема</h2>
+              <p>На платформе размещаются курсы образовательных организаций, университетов, компаний и независимых авторов. В официальном справочном материале Stepik среди организаций и компаний, чьи курсы представлены на платформе, названы:</p>
+              <div class="partner-groups">
+                <div class="partner-group">
+                  <h3>Образовательные организации</h3>
+                  <div class="partner-chips">
+                    <span>Институт биоинформатики</span>
+                    <span>Computer Science Center</span>
+                    <span>НИУ ВШЭ</span>
+                    <span>Европейский университет</span>
+                    <span>БФУ им. И. Канта</span>
+                    <span>ДВФУ</span>
+                  </div>
+                </div>
+                <div class="partner-group">
+                  <h3>Компании и технологические команды</h3>
+                  <div class="partner-chips">
+                    <span>JetBrains</span>
+                    <span>Avito</span>
+                    <span>VK Team</span>
+                    <span>Mindbox</span>
+                  </div>
+                </div>
+              </div>
+              <p class="source-caption">Это примеры организаций и компаний, чьи образовательные материалы представлены на Stepik; список не является исчерпывающим перечнем юридических партнёров.</p>
+            </section>
+
+            <section class="content-section">
+              <h2>Платформа и образовательные события</h2>
+              <div class="history-facts-grid">
+                <article class="history-fact-card">
+                  <span class="history-fact-value">2016–2023</span>
+                  <h3>Олимпиада НТО</h3>
+                  <p>На платформе проводился отборочный этап Национальной технологической олимпиады.</p>
+                </article>
+                <article class="history-fact-card">
+                  <span class="history-fact-value">2017–2024</span>
+                  <h3>«Тотальный диктант»</h3>
+                  <p>На Stepik проходил онлайн-этап образовательной акции.</p>
+                </article>
+              </div>
+            </section>
+
+            <section class="content-section">
+              <h2>Масштаб: исторический срез за 2023 год</h2>
+              <div class="history-metrics">
+                <div class="history-metric">
+                  <strong>7 млн+</strong>
+                  <span>зарегистрированных пользователей</span>
+                </div>
+                <div class="history-metric">
+                  <strong>1 млрд+</strong>
+                  <span>отправленных решений</span>
+                </div>
+              </div>
+              <p class="source-caption">Показатели приведены именно по состоянию на 2023 год, как указано в официальной справке Stepik. Это исторический срез, а не текущая статистика на дату просмотра.</p>
+            </section>
+
+            <div class="source-block">
+              <strong>Источники</strong>
+              <ul>
+                <li><a href="https://help.stepik.org/article/54716" target="_blank" rel="noopener noreferrer">Stepik Help Center. Общая информация о Stepik</a>.</li>
+                <li><a href="https://teach.stepik.org/ru/edu-organizations" target="_blank" rel="noopener noreferrer">Stepik Teach Center. Платформа для образовательных организаций</a>.</li>
+              </ul>
+              <p class="source-caption">Названия организаций, сведения о мероприятиях и исторические показатели сверены с официальной справкой платформы.</p>
+            </div>
+          </div>
         </article>
       </section>
       <section class="page page-article" id="page-2-2" data-section="2" data-title="Сравнение с аналогами" aria-labelledby="title-2-2">

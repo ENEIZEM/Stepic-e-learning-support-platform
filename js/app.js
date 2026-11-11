@@ -515,6 +515,109 @@
   nextQuizButton.addEventListener("click", checkOrAdvance);
   document.getElementById("quiz-restart").addEventListener("click", restartQuiz);
 
+  // Page 1.2: clickable course hierarchy — each level explains its role.
+  const structureCopy = {
+    course: {
+      eyebrow: "Уровень 1",
+      title: "Курс",
+      description: "Объединяет учебные материалы по общей теме, задаёт цель и последовательность обучения. Курс может включать несколько модулей.",
+      example: "Пример: «Основы анализа данных»"
+    },
+    module: {
+      eyebrow: "Уровень 2",
+      title: "Модуль",
+      description: "Группирует уроки по крупным темам или этапам программы. Автор может менять название, расположение и настройки модуля.",
+      example: "Пример: «Введение в работу с данными»"
+    },
+    lesson: {
+      eyebrow: "Уровень 3",
+      title: "Урок",
+      description: "Собирает материалы по одной теме. В урок можно добавлять новые или ранее созданные шаги; один урок может использоваться в разных курсах.",
+      example: "Пример: «Таблицы и типы данных»"
+    },
+    step: {
+      eyebrow: "Уровень 4",
+      title: "Шаг",
+      description: "Минимальная учебная единица: теоретический материал, видео или практическое задание. В одном уроке может быть до 16 шагов.",
+      example: "Пример: текстовое объяснение, тест или задача на программирование"
+    }
+  };
+
+  document.querySelectorAll("[data-course-level]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const detail = structureCopy[button.dataset.courseLevel];
+      if (!detail) return;
+      document.querySelectorAll("[data-course-level]").forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", String(active));
+      });
+      document.getElementById("course-level-eyebrow").textContent = detail.eyebrow;
+      document.getElementById("course-level-title").textContent = detail.title;
+      document.getElementById("course-level-description").textContent = detail.description;
+      document.getElementById("course-level-example").textContent = detail.example;
+    });
+  });
+
+  // Page 1.2: local-only imitation of the course-enrolment state.
+  const enrollDemoButton = document.getElementById("course-enroll-demo");
+  const enrollFeedback = document.getElementById("course-enroll-feedback");
+  if (enrollDemoButton && enrollFeedback) {
+    enrollDemoButton.addEventListener("click", () => {
+      enrollDemoButton.textContent = "Вы записаны";
+      enrollDemoButton.classList.add("is-complete");
+      enrollDemoButton.disabled = true;
+      enrollFeedback.textContent = "Демо-состояние изменено: курс добавлен в список обучения.";
+    });
+  }
+
+  // Page 2.1: select a historical milestone and read its source-backed note.
+  const historyEvents = {
+    launch: {
+      period: "2013 · Основание платформы",
+      title: "Появление Stepik",
+      description: "Справочный центр Stepik указывает 2013 год как год создания платформы. Сервис развивается как образовательная платформа и конструктор онлайн-курсов.",
+      source: "https://help.stepik.org/article/54716",
+      sourceLabel: "Общая информация о Stepik"
+    },
+    events: {
+      period: "2016–2024 · Образовательные события",
+      title: "Платформа для массовых онлайн-мероприятий",
+      description: "По официальной справке Stepik, на платформе проводился отборочный этап Национальной технологической олимпиады в 2016–2023 годах, а в 2017–2024 годах — онлайн-этап акции «Тотальный диктант».",
+      source: "https://help.stepik.org/article/54716",
+      sourceLabel: "Общая информация о Stepik"
+    },
+    scale: {
+      period: "2023 · Исторический статистический срез",
+      title: "Рост аудитории и числа решений",
+      description: "К 2023 году на платформе было зарегистрировано более 7 миллионов пользователей и отправлено более 1 миллиарда решений. Эти цифры относятся к 2023 году и не выдаются за актуальную статистику.",
+      source: "https://help.stepik.org/article/54716",
+      sourceLabel: "Общая информация о Stepik"
+    }
+  };
+  document.querySelectorAll("[data-history-event]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const item = historyEvents[button.dataset.historyEvent];
+      if (!item) return;
+      document.querySelectorAll("[data-history-event]").forEach((tab) => {
+        const active = tab === button;
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-pressed", String(active));
+      });
+      document.getElementById("history-detail-period").textContent = item.period;
+      document.getElementById("history-detail-title").textContent = item.title;
+      document.getElementById("history-detail-description").textContent = item.description;
+      const sourceLine = document.getElementById("history-detail-source");
+      sourceLine.replaceChildren("Источник: ");
+      const sourceLink = document.createElement("a");
+      sourceLink.href = item.source;
+      sourceLink.target = "_blank";
+      sourceLink.rel = "noopener noreferrer";
+      sourceLink.textContent = item.sourceLabel;
+      sourceLine.append(sourceLink, ".");
+    });
+  });
+
   renderQuestion();
   renderPage(getHashPage());
 })();
