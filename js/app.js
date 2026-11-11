@@ -687,6 +687,7 @@
     const dialogForm = document.getElementById("builder-dialog-form");
     const dialogTitle = document.getElementById("builder-dialog-title");
     const dialogName = document.getElementById("builder-dialog-name");
+    const dialogNameLabel = document.getElementById("builder-dialog-name-label");
     const dialogHint = document.getElementById("builder-dialog-hint");
     const dialogTypeWrap = document.getElementById("builder-dialog-type-wrap");
     const dialogType = document.getElementById("builder-dialog-type");
@@ -732,22 +733,25 @@
       dialogName.setCustomValidity("");
       if (mode === "course") {
         dialogTitle.textContent = "Новый курс";
-        dialogName.previousSibling.textContent = "";
+        dialogNameLabel.textContent = "Название курса";
         dialogName.placeholder = "Например, Основы анализа данных";
         dialogHint.textContent = "На первом этапе создания курса Stepik запрашивает только его название. Описание можно заполнить после создания.";
         dialogSubmit.textContent = "Создать курс";
       } else if (mode === "module") {
         dialogTitle.textContent = "Новый модуль";
+        dialogNameLabel.textContent = "Название модуля";
         dialogName.placeholder = "Например, Введение";
         dialogHint.textContent = "Модуль объединяет уроки по одной теме или учебной неделе.";
         dialogSubmit.textContent = "Добавить модуль";
       } else if (mode === "lesson") {
         dialogTitle.textContent = "Новый урок";
+        dialogNameLabel.textContent = "Название урока";
         dialogName.placeholder = "Например, Первые шаги";
         dialogHint.textContent = "Урок объединяет материалы и практические задания по одной теме.";
         dialogSubmit.textContent = "Добавить урок";
       } else {
         dialogTitle.textContent = "Новый шаг";
+        dialogNameLabel.textContent = "Название шага";
         dialogName.placeholder = "Например, Что такое переменная";
         dialogHint.textContent = "Выбери формат шага. В одном уроке может быть не более 16 шагов.";
         dialogSubmit.textContent = "Добавить шаг";
