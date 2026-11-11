@@ -3436,3 +3436,221 @@ body.sidebar-open { overflow: auto; }
  .analytics-gradebook>.analytics-panel-heading{align-items:flex-start;flex-direction:column}
  .analytics-export-row label{width:100%;justify-content:space-between}.analytics-export-row select{flex:1}.analytics-export-row button{flex:1}
 }
+
+
+/* Readability pass: larger type for dense cards, tables and standalone blocks. */
+.article-body .source-caption { font-size: 13px !important; line-height: 1.7 !important; }
+.article-body .source-block { padding: 19px 21px; font-size: 14px; line-height: 1.75; }
+.article-body .source-block > strong { font-size: 15px; }
+.article-body .source-block li { margin: 5px 0; font-size: 13.5px; line-height: 1.65; }
+.article-body .info-note { font-size: 15px; line-height: 1.75; }
+.article-body .info-note strong { font-size: 15px; }
+.article-body .section-intro { font-size: 15px; line-height: 1.7; }
+.article-body .content-section > p { font-size: 16px; line-height: 1.85; }
+.article-body .content-section p.source-caption { font-size: 13px !important; }
+.article-body .comparison-table { font-size: 13px; line-height: 1.65; }
+.article-body .comparison-table th,
+.article-body .comparison-table td { padding: 13px 14px; }
+.article-body .comparison-table thead th,
+.article-body .comparison-table tbody th { font-size: 13px; }
+.article-body .comparison-detail-columns strong { font-size: 13px; }
+.article-body .comparison-detail-columns p { font-size: 13.5px; line-height: 1.75; }
+.article-body .api-integration-card p { min-height: 0; font-size: 14px; line-height: 1.75; }
+.article-body .api-integration-card small { font-size: 11px; }
+.article-body .api-request-info span,
+.article-body .api-request-info strong,
+.article-body .api-code-card pre,
+.article-body .api-code-card p,
+.article-body .api-demo-disclaimer,
+.article-body .iframe-builder-form > label,
+.article-body .iframe-builder-form > p,
+.article-body .iframe-builder-result span,
+.article-body .iframe-builder-demo > p,
+.article-body .iframe-builder-demo > a,
+.article-body .oauth-flow-detail p,
+.article-body .api-security-note p { font-size: 13px; line-height: 1.7; }
+.article-body .api-explorer-toolbar code,
+.article-body .api-response-heading strong,
+.article-body .api-response-heading span,
+.article-body .api-code-heading strong,
+.article-body .api-code-heading span,
+.article-body .oauth-flow-steps button,
+.article-body .oauth-flow-steps button span,
+.article-body .oauth-flow-detail small { font-size: 12px; }
+.article-body .api-architecture > div b,
+.article-body .api-architecture > div small { font-size: 12px; }
+.article-body .analytics-feature-grid h3 { font-size: 14px; }
+.article-body .analytics-feature-grid p { font-size: 13px; line-height: 1.7; }
+.article-body .analytics-dashboard-topbar small,
+.article-body .analytics-dashboard-topbar label,
+.article-body .analytics-period-select,
+.article-body .analytics-period-select select { font-size: 12px; }
+.article-body .analytics-kpi-grid article > span { font-size: 12px; line-height: 1.5; }
+.article-body .analytics-kpi-grid article > small { font-size: 11px; line-height: 1.5; }
+.article-body .analytics-chart-header strong { font-size: 13px; }
+.article-body .analytics-chart-header small,
+.article-body .analytics-chart-tabs button,
+.article-body .analytics-bar-value,
+.article-body .analytics-chart-axis span,
+.article-body .analytics-chart-legend { font-size: 11px; }
+.article-body .analytics-panel-heading strong { font-size: 12px; }
+.article-body .analytics-panel-heading small,
+.article-body .analytics-module-row small { font-size: 11px; }
+.article-body .analytics-module-row strong,
+.article-body .analytics-module-row > b { font-size: 12px; }
+.article-body .analytics-panel-card h4 { font-size: 13px; }
+.article-body .analytics-panel-card p,
+.article-body .analytics-panel-card a { font-size: 12px; line-height: 1.7; }
+.article-body .analytics-gradebook table { font-size: 12px; }
+.article-body .analytics-gradebook thead th { font-size: 11px; }
+.article-body .analytics-gradebook th,
+.article-body .analytics-gradebook td { padding: 12px 14px; }
+.article-body .analytics-export-row label,
+.article-body .analytics-export-row select,
+.article-body .analytics-export-row button,
+.article-body .analytics-export-row > span { font-size: 12px; line-height: 1.6; }
+.article-body .analytics-discrimination-scale b { font-size: 13px; }
+.article-body .analytics-discrimination-scale p { font-size: 12px; line-height: 1.7; }
+.article-body .analytics-report-formats span { font-size: 12px; }
+.article-body .constructor-note-card strong { font-size: 14px; }
+.article-body .constructor-note-card p { font-size: 13px; line-height: 1.7; }
+.article-body .constructor-learning-path ol { font-size: 14px; line-height: 1.8; }
+.article-body .builder-dashboard-heading p:not(.builder-eyebrow),
+.article-body .builder-empty-card p,
+.article-body .builder-empty-outline,
+.article-body .builder-tree-empty,
+.article-body .builder-editor-empty p,
+.article-body .builder-editor-note,
+.article-body .builder-settings-note,
+.article-body .builder-locked-note,
+.article-body .builder-dialog-hint { font-size: 12px; line-height: 1.7; }
+.article-body .builder-panel-heading > strong,
+.article-body .builder-tree-select,
+.article-body .builder-tree-add,
+.article-body .builder-tree-lesson-select,
+.article-body .builder-editor-header h4,
+.article-body .builder-module-settings summary,
+.article-body .builder-setting-row,
+.article-body .builder-dialog-label,
+.article-body .builder-inline-actions > span { font-size: 12px; }
+.article-body .builder-tree-step-add { font-size: 14px; }
+.article-body .builder-step-row strong { font-size: 12px; }
+.article-body .builder-step-row small { font-size: 11px; }
+.article-body .builder-course-type-label,
+.article-body .builder-course-type-label select,
+.article-body .builder-toolbar-tab { font-size: 12px; }
+
+/* Page 3.3 — curated Stepik courses from the official catalogue. */
+.courses-catalog-content { max-width: 1040px; }
+.course-catalog-heading { display:flex; align-items:end; justify-content:space-between; gap:16px; }
+.course-catalog-heading h2 { margin:0 0 7px; color:var(--ink); font-size:26px; font-weight:650; letter-spacing:-.03em; }
+.course-catalog-heading .section-intro { margin:0; color:var(--ink-soft); font-size:15px; line-height:1.7; }
+.course-catalog-filters { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0 17px; }
+.course-catalog-filters button {
+  min-height:38px; padding:8px 13px; border:1px solid #e4deed; border-radius:8px; background:#fff;
+  color:#5e576f; font:inherit; font-size:13px; font-weight:650; cursor:pointer;
+}
+.course-catalog-filters button:hover,.course-catalog-filters button.is-active { border-color:#c9bce9; background:#f0ecfa; color:#55418c; }
+.course-catalog-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.course-catalog-card { min-width:0; overflow:hidden; border:1px solid #e5e0eb; border-radius:14px; background:#fff; box-shadow:0 8px 24px rgba(34,28,48,.055); }
+.course-catalog-card[hidden] { display:none; }
+.course-cover {
+  display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap:8px;
+  min-height:130px; padding:22px 24px; overflow:hidden;
+  color:#fff; background:#302943;
+}
+.course-cover > span { font-size:35px; line-height:1; font-weight:800; letter-spacing:-.06em; }
+.course-cover > small { font-size:13px; font-weight:600; letter-spacing:.04em; }
+.course-cover-generation { background:linear-gradient(125deg,#302943 0%,#55428a 60%,#8b78bd 100%); }
+.course-cover-good-python { background:linear-gradient(125deg,#302943 0%,#394d6e 55%,#6e8aab 100%); }
+.course-cover-data { background:linear-gradient(125deg,#312943 0%,#51427b 50%,#8778b8 100%); }
+.course-cover-math { background:linear-gradient(125deg,#282639 0%,#4f4778 55%,#9480bd 100%); }
+.course-card-body { padding:19px 20px 17px; }
+.course-card-meta { display:flex; flex-wrap:wrap; justify-content:space-between; gap:7px; color:#827b8e; font-size:12px; }
+.course-card-body h3 { margin:10px 0 8px; color:#302c3e; font-size:19px; line-height:1.3; font-weight:700; letter-spacing:-.025em; }
+.course-card-body > p { min-height:76px; margin:0; color:#625c70; font-size:14px; line-height:1.75; }
+.course-card-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:17px 0 15px; padding:13px 0; border-top:1px solid #eeeaf3; border-bottom:1px solid #eeeaf3; }
+.course-card-stats > div { display:grid; gap:4px; min-width:0; }
+.course-card-stats strong { color:#51417f; font-size:21px; font-weight:800; font-variant-numeric:tabular-nums; }
+.course-card-stats span { color:#777082; font-size:12px; line-height:1.45; }
+.course-card-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.course-free-label { color:#5e4b91; font-size:12px; font-weight:700; }
+.course-card-footer a { color:#5d479f; font-size:13px; font-weight:700; text-decoration:underline; text-decoration-color:#c9bce5; text-underline-offset:3px; }
+.course-patterns-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; margin-top:17px; }
+.course-patterns-grid article { padding:19px; border:1px solid #e7e2ee; border-radius:12px; background:#fff; }
+.course-patterns-grid article > span { color:#7660bc; font-size:12px; font-weight:850; }
+.course-patterns-grid h3 { margin:10px 0 7px; color:#484155; font-size:16px; }
+.course-patterns-grid p { margin:0; color:#6c6579; font-size:13px; line-height:1.75; }
+.course-selection-note { margin-top:15px; padding:17px 19px; border:1px solid #e5e0ed; border-radius:11px; background:#f8f6fc; }
+.course-selection-note strong { color:#51417f; font-size:14px; }
+.course-selection-note p { margin:6px 0 0; color:#655e72; font-size:14px; line-height:1.75; }
+
+/* Page 4.1 — the complete official 18-type task taxonomy. */
+.task-types-content { max-width:1050px; }
+.task-types-overview { display:grid; grid-template-columns:110px minmax(0,1fr); gap:20px; align-items:center; margin-bottom:34px; padding:21px 23px; border:1px solid #e5e0ed; border-radius:13px; background:#f8f6fc; }
+.task-types-overview > div { display:grid; justify-items:center; gap:4px; padding-right:18px; border-right:1px solid #ddd5eb; }
+.task-types-overview strong { color:#594397; font-size:45px; line-height:1; font-weight:800; }
+.task-types-overview span { color:#6f6681; font-size:12px; text-align:center; line-height:1.4; }
+.task-types-overview p { margin:0; color:#5f596d; font-size:15px; line-height:1.8; }
+.task-types-heading { display:flex; align-items:end; justify-content:space-between; gap:15px; }
+.task-types-heading h2 { margin:0 0 7px; color:var(--ink); font-size:26px; font-weight:650; letter-spacing:-.03em; }
+.task-types-heading .section-intro { margin:0; color:var(--ink-soft); font-size:15px; line-height:1.7; }
+.task-type-filters { display:flex; flex-wrap:wrap; gap:8px; margin:17px 0; }
+.task-type-filters button { min-height:38px; padding:8px 12px; border:1px solid #e3deeb; border-radius:8px; background:#fff; color:#605970; font:inherit; font-size:13px; font-weight:650; cursor:pointer; }
+.task-type-filters button:hover,.task-type-filters button.is-active { border-color:#c9bce9; background:#f0ecfa; color:#55418c; }
+.task-type-layout { display:grid; grid-template-columns:minmax(0,1.18fr) minmax(285px,.82fr); gap:16px; align-items:start; }
+.task-type-card-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+.task-type-card {
+  display:grid; grid-template-columns:30px minmax(0,1fr); grid-template-rows:auto auto; align-items:center; gap:4px 9px; min-height:76px;
+  padding:12px; border:1px solid #e6e1ed; border-radius:10px; background:#fff; color:#514b61; text-align:left; cursor:pointer;
+}
+.task-type-card[hidden] { display:none; }
+.task-type-card > span { grid-row:1 / 3; display:grid; width:28px; height:28px; place-items:center; border-radius:7px; background:#f0ecfa; color:#65509e; font-size:11px; font-weight:850; }
+.task-type-card strong { min-width:0; color:#443e53; font-size:14px; line-height:1.35; font-weight:700; }
+.task-type-card small { color:#827b8e; font-size:12px; line-height:1.4; }
+.task-type-card:hover,.task-type-card.is-active { border-color:#c9bce9; background:#f9f7fd; box-shadow:0 4px 13px rgba(73,55,112,.07); }
+.task-type-card.is-active strong { color:#55418c; }
+.task-type-detail { position:sticky; top:95px; padding:20px; border:1px solid #e2dced; border-radius:13px; background:#fbfaff; box-shadow:0 9px 23px rgba(34,28,48,.05); }
+.task-type-detail-group { margin:0 0 7px; color:#7660bc; font-size:11px; font-weight:800; letter-spacing:.035em; text-transform:uppercase; }
+.task-type-detail h3 { margin:0 0 9px; color:#342e48; font-size:22px; line-height:1.25; font-weight:700; }
+.task-type-detail > p:not(.task-type-detail-group) { margin:0; color:#615b70; font-size:14px; line-height:1.8; }
+.task-type-detail-example,.task-type-detail-check { margin-top:15px; padding-top:13px; border-top:1px solid #e7e1f0; }
+.task-type-detail-example strong,.task-type-detail-check strong { color:#504866; font-size:13px; }
+.task-type-detail-example p,.task-type-detail-check p { margin:5px 0 0; color:#6b6479; font-size:13px; line-height:1.7; }
+.task-type-detail > a { display:inline-block; margin-top:17px; color:#5d479f; font-size:13px; font-weight:700; text-decoration:underline; text-decoration-color:#c9bce5; text-underline-offset:3px; }
+.task-type-guidelines { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; margin-top:16px; }
+.task-type-guidelines article { padding:17px; border:1px solid #e7e2ee; border-radius:11px; background:#fff; }
+.task-type-guidelines strong { color:#484155; font-size:14px; line-height:1.45; }
+.task-type-guidelines p { margin:7px 0 0; color:#6c6579; font-size:13px; line-height:1.7; }
+.task-author-note { margin-top:15px; padding:17px 19px; border-left:3px solid #7660bc; border-radius:0 10px 10px 0; background:#f5f2fb; }
+.task-author-note strong { color:#51417f; font-size:14px; }
+.task-author-note p { margin:6px 0 0; color:#655e72; font-size:14px; line-height:1.75; }
+
+@media(max-width:900px) {
+  .task-type-layout { grid-template-columns:1fr; }
+  .task-type-detail { position:static; }
+  .course-patterns-grid { grid-template-columns:1fr; }
+}
+@media(max-width:760px) {
+  .course-catalog-heading,.task-types-heading { align-items:flex-start; flex-direction:column; }
+  .course-catalog-grid { grid-template-columns:1fr; }
+  .course-card-body > p { min-height:0; }
+  .task-types-overview { grid-template-columns:1fr; gap:13px; }
+  .task-types-overview > div { justify-items:start; padding:0 0 12px; border-right:0; border-bottom:1px solid #ddd5eb; }
+  .task-types-overview span { text-align:left; }
+  .task-type-guidelines { grid-template-columns:1fr; }
+}
+@media(max-width:440px) {
+  .course-card-body { padding:16px; }
+  .course-card-stats { gap:5px; }
+  .course-card-stats strong { font-size:18px; }
+  .course-card-stats span { font-size:11px; }
+  .task-type-filters button { flex:1 1 calc(50% - 8px); }
+  .task-type-card-grid { grid-template-columns:1fr; }
+}
+
+/* Bigger labels and captions in the pre-existing Stepik mockups on narrow screens. */
+@media(max-width:760px) {
+  .course-card-body h3 { font-size:18px; }
+  .task-type-detail { padding:17px; }
+}

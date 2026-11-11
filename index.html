@@ -675,17 +675,176 @@ Accept: application/json</code></pre><p>В справке Stepik описан si
           </div>
         </article>
       </section>
-      <section class="page page-article" id="page-3-3" data-section="3" data-title="Примеры курсов" aria-labelledby="title-3-3">
+            <section class="page page-article" id="page-3-3" data-section="3" data-title="Примеры курсов" aria-labelledby="title-3-3">
         <article class="article">
-          <div class="article-heading"><p class="section-kicker"><span class="section-label">Курсы и аналитика</span></p><h1 id="title-3-3">Примеры курсов</h1></div>
-          <p class="placeholder">Материал будет добавлен на следующем этапе разработки.</p>
+          <div class="article-heading">
+            <p class="section-kicker"><span class="section-label">Курсы и аналитика</span></p>
+            <h1 id="title-3-3">Примеры курсов</h1>
+            <p class="article-lead">Каталог Stepik объединяет курсы разных направлений и уровней. Ниже — четыре реальных примера, показывающих, как могут отличаться структура, объём видео и доля практических заданий.</p>
+          </div>
+
+          <div class="article-body courses-catalog-content">
+            <section class="content-section">
+              <div class="course-catalog-heading">
+                <div><h2>Подборка курсов Stepik</h2><p class="section-intro">Используй фильтры, чтобы посмотреть примеры по направлению.</p></div>
+                <span class="source-tag">Официальный каталог</span>
+              </div>
+              <div class="course-catalog-filters" role="group" aria-label="Фильтр по направлению курса">
+                <button type="button" class="is-active" data-course-filter="all" aria-pressed="true">Все курсы</button>
+                <button type="button" data-course-filter="programming" aria-pressed="false">Программирование</button>
+                <button type="button" data-course-filter="data" aria-pressed="false">Анализ данных</button>
+                <button type="button" data-course-filter="math" aria-pressed="false">Математика и Python</button>
+              </div>
+              <div class="course-catalog-grid" id="course-catalog-grid">
+                <article class="course-catalog-card" data-course-topic="programming">
+                  <div class="course-cover course-cover-generation"><span>PY</span><small>Поколение Python</small></div>
+                  <div class="course-card-body">
+                    <div class="course-card-meta"><span>Программирование</span><span>Начальный уровень</span></div>
+                    <h3>«Поколение Python»: курс для начинающих</h3>
+                    <p>Базовые типы данных и конструкции Python; текстовая теория сочетается с большим набором задач, проверяемых автоматически.</p>
+                    <div class="course-card-stats"><div><strong>70</strong><span>уроков</span></div><div><strong>470</strong><span>тестов</span></div><div><strong>331</strong><span>интерактивная задача</span></div></div>
+                    <div class="course-card-footer"><span class="course-free-label">Бесплатный курс</span><a href="https://stepik.org/course/58852/promo" target="_blank" rel="noopener noreferrer">Открыть на Stepik ↗</a></div>
+                  </div>
+                </article>
+
+                <article class="course-catalog-card" data-course-topic="programming">
+                  <div class="course-cover course-cover-good-python"><span>Py</span><small>Добрый Python</small></div>
+                  <div class="course-card-body">
+                    <div class="course-card-meta"><span>Программирование</span><span>Начальный уровень</span></div>
+                    <h3>Добрый, добрый Python с Сергеем Балакиревым</h3>
+                    <p>Основы языка от первых конструкций до более сложных приёмов; после теоретических видеоуроков предлагаются задания для закрепления.</p>
+                    <div class="course-card-stats"><div><strong>77</strong><span>уроков</span></div><div><strong>142</strong><span>теста</span></div><div><strong>395</strong><span>интерактивных задач</span></div></div>
+                    <div class="course-card-footer"><span class="course-free-label">Бесплатный курс</span><a href="https://stepik.org/course/100707/promo" target="_blank" rel="noopener noreferrer">Открыть на Stepik ↗</a></div>
+                  </div>
+                </article>
+
+                <article class="course-catalog-card" data-course-topic="data">
+                  <div class="course-cover course-cover-data"><span>DATA</span><small>Python · pandas</small></div>
+                  <div class="course-card-body">
+                    <div class="course-card-meta"><span>Анализ данных</span><span>Начальный уровень</span></div>
+                    <h3>Python для анализа данных с нуля</h3>
+                    <p>Курс ведёт от базовых конструкций Python к чтению CSV, NumPy, pandas, группировкам, объединению таблиц и анализу данных.</p>
+                    <div class="course-card-stats"><div><strong>34</strong><span>урока</span></div><div><strong>69</strong><span>тестов</span></div><div><strong>105</strong><span>интерактивных задач</span></div></div>
+                    <div class="course-card-footer"><span class="course-free-label">Бесплатный курс</span><a href="https://stepik.org/course/300174/promo" target="_blank" rel="noopener noreferrer">Открыть на Stepik ↗</a></div>
+                  </div>
+                </article>
+
+                <article class="course-catalog-card" data-course-topic="math">
+                  <div class="course-cover course-cover-math"><span>∑ Py</span><small>Практикум</small></div>
+                  <div class="course-card-body">
+                    <div class="course-card-meta"><span>Математика и Python</span><span>Средний уровень</span></div>
+                    <h3>Практикум по математике и Python</h3>
+                    <p>Дополнительные задачи по программированию и математике для закрепления навыков и более глубокого изучения материала.</p>
+                    <div class="course-card-stats"><div><strong>53</strong><span>урока</span></div><div><strong>58</strong><span>тестов</span></div><div><strong>238</strong><span>интерактивных задач</span></div></div>
+                    <div class="course-card-footer"><span class="course-free-label">Бесплатный курс</span><a href="https://stepik.org/course/3356/promo" target="_blank" rel="noopener noreferrer">Открыть на Stepik ↗</a></div>
+                  </div>
+                </article>
+              </div>
+              <p class="source-caption">Количество уроков и заданий указано по карточкам курсов Stepik на момент подготовки страницы (11 ноября 2026 года). Состав, статистика и доступность курсов могут изменяться; для актуальных сведений открой страницу курса.</p>
+            </section>
+
+            <section class="content-section">
+              <h2>Что можно увидеть по структуре курсов</h2>
+              <div class="course-patterns-grid">
+                <article><span>01</span><h3>Теория + практика</h3><p>Уроки объединяют короткие объяснения и последовательные задачи, которые закрепляют материал.</p></article>
+                <article><span>02</span><h3>Видео + задания</h3><p>Видеоурок может сопровождаться тестами и интерактивными задачами для проверки понимания.</p></article>
+                <article><span>03</span><h3>Проектная практика</h3><p>Курс может постепенно вести к комплексной задаче, где учащийся применяет несколько изученных приёмов.</p></article>
+              </div>
+              <div class="course-selection-note"><strong>Как выбрать курс</strong><p>Смотри не только на название: сравни начальные требования, программу, типы задач, длительность и наличие обратной связи. Количество тестов само по себе не показывает качество курса.</p></div>
+            </section>
+
+            <div class="source-block">
+              <strong>Источники — официальные страницы Stepik</strong>
+              <ul>
+                <li><a href="https://stepik.org/catalog" target="_blank" rel="noopener noreferrer">Каталог онлайн-курсов Stepik</a>.</li>
+                <li><a href="https://stepik.org/course/58852/promo" target="_blank" rel="noopener noreferrer">«Поколение Python»: курс для начинающих</a>.</li>
+                <li><a href="https://stepik.org/course/100707/promo" target="_blank" rel="noopener noreferrer">Добрый, добрый Python</a>.</li>
+                <li><a href="https://stepik.org/course/300174/promo" target="_blank" rel="noopener noreferrer">Python для анализа данных с нуля</a>.</li>
+                <li><a href="https://stepik.org/course/3356/promo" target="_blank" rel="noopener noreferrer">Практикум по математике и Python</a>.</li>
+              </ul>
+            </div>
+          </div>
         </article>
       </section>
 
-      <section class="page page-article" id="page-4-1" data-section="4" data-title="Типы заданий" aria-labelledby="title-4-1">
+            <section class="page page-article" id="page-4-1" data-section="4" data-title="Типы заданий" aria-labelledby="title-4-1">
         <article class="article">
-          <div class="article-heading"><p class="section-kicker"><span class="section-label">Задания</span></p><h1 id="title-4-1">Типы заданий</h1></div>
-          <p class="placeholder">Материал будет добавлен на следующем этапе разработки.</p>
+          <div class="article-heading">
+            <p class="section-kicker"><span class="section-label">Задания</span></p>
+            <h1 id="title-4-1">Типы заданий</h1>
+            <p class="article-lead">В Stepik теория дополняется практикой: учащийся может выбрать ответ, ввести значение, упорядочить элементы, написать код или отправить работу на проверку.</p>
+          </div>
+          <div class="article-body task-types-content">
+            <div class="task-types-overview">
+              <div><strong>18</strong><span>типов практических задач</span></div>
+              <p>Официальная справка Stepik делит их на три группы: тестовые задачи, задачи с вводом ответа и интерактивные задачи. Большая часть заданий проверяется автоматически; некоторые могут проверяться преподавателем или другими учащимися.</p>
+            </div>
+
+            <section class="content-section">
+              <div class="task-types-heading">
+                <div><h2>Каталог типов заданий</h2><p class="section-intro">Выбери категорию или открой карточку, чтобы узнать, какой ответ ожидается и как работает проверка.</p></div>
+                <span class="source-tag">18 типов · Help Center</span>
+              </div>
+              <div class="task-type-filters" role="group" aria-label="Фильтр типов заданий">
+                <button type="button" class="is-active" data-task-filter="all" aria-pressed="true">Все · 18</button>
+                <button type="button" data-task-filter="test" aria-pressed="false">Тестовые · 4</button>
+                <button type="button" data-task-filter="input" aria-pressed="false">С вводом ответа · 6</button>
+                <button type="button" data-task-filter="interactive" aria-pressed="false">Интерактивные · 8</button>
+              </div>
+              <div class="task-type-layout">
+                <div class="task-type-card-grid" id="task-type-card-grid">
+                  <button type="button" class="task-type-card is-active" data-task-type="test" data-task-group="test" aria-pressed="true"><span>01</span><strong>Тест</strong><small>Один или несколько вариантов</small></button>
+                  <button type="button" class="task-type-card" data-task-type="sorting" data-task-group="test" aria-pressed="false"><span>02</span><strong>Сортировка</strong><small>Упорядочить список</small></button>
+                  <button type="button" class="task-type-card" data-task-type="matching" data-task-group="test" aria-pressed="false"><span>03</span><strong>Сопоставление</strong><small>Связать пары значений</small></button>
+                  <button type="button" class="task-type-card" data-task-type="table" data-task-group="test" aria-pressed="false"><span>04</span><strong>Табличная задача</strong><small>Отметить верные ячейки</small></button>
+
+                  <button type="button" class="task-type-card" data-task-type="blanks" data-task-group="input" aria-pressed="false"><span>05</span><strong>Пропуски</strong><small>Заполнить пустые места</small></button>
+                  <button type="button" class="task-type-card" data-task-type="numeric" data-task-group="input" aria-pressed="false"><span>06</span><strong>Численная задача</strong><small>Ввести число с погрешностью</small></button>
+                  <button type="button" class="task-type-card" data-task-type="formula" data-task-group="input" aria-pressed="false"><span>07</span><strong>Математическая формула</strong><small>Ввести эквивалентную формулу</small></button>
+                  <button type="button" class="task-type-card" data-task-type="random" data-task-group="input" aria-pressed="false"><span>08</span><strong>Случайное условие</strong><small>Условие меняется при генерации</small></button>
+                  <button type="button" class="task-type-card" data-task-type="text" data-task-group="input" aria-pressed="false"><span>09</span><strong>Текстовая задача</strong><small>Строка по заданному шаблону</small></button>
+                  <button type="button" class="task-type-card" data-task-type="free" data-task-group="input" aria-pressed="false"><span>10</span><strong>Свободный ответ</strong><small>Развёрнутый текст без автопроверки</small></button>
+
+                  <button type="button" class="task-type-card" data-task-type="programming" data-task-group="interactive" aria-pressed="false"><span>11</span><strong>Программирование</strong><small>Написать и отправить код</small></button>
+                  <button type="button" class="task-type-card" data-task-type="data" data-task-group="interactive" aria-pressed="false"><span>12</span><strong>Задача на данные</strong><small>Обработать набор данных</small></button>
+                  <button type="button" class="task-type-card" data-task-type="sql" data-task-group="interactive" aria-pressed="false"><span>13</span><strong>Задача по SQL</strong><small>Составить SQL-запрос</small></button>
+                  <button type="button" class="task-type-card" data-task-type="htmlcss" data-task-group="interactive" aria-pressed="false"><span>14</span><strong>HTML и CSS</strong><small>Создать структуру и стили</small></button>
+                  <button type="button" class="task-type-card" data-task-type="external" data-task-group="interactive" aria-pressed="false"><span>15</span><strong>External Grader</strong><small>Проверка внешней системой</small></button>
+                  <button type="button" class="task-type-card" data-task-type="lti" data-task-group="interactive" aria-pressed="false"><span>16</span><strong>LTI consumer</strong><small>Проверка через LTI-провайдера</small></button>
+                  <button type="button" class="task-type-card" data-task-type="parsons" data-task-group="interactive" aria-pressed="false"><span>17</span><strong>Задача Парсона</strong><small>Собрать код из блоков</small></button>
+                  <button type="button" class="task-type-card" data-task-type="teacher" data-task-group="interactive" aria-pressed="false"><span>18</span><strong>Оценка преподавателя</strong><small>Баллы добавляет преподаватель</small></button>
+                </div>
+                <aside class="task-type-detail" aria-live="polite">
+                  <p class="task-type-detail-group" id="task-type-detail-group">Тестовые задачи · 01</p>
+                  <h3 id="task-type-detail-title">Тест</h3>
+                  <p id="task-type-detail-description">Учащийся выбирает один или несколько вариантов ответа. Автор может добавить пояснения, перемешать варианты или показывать только часть списка.</p>
+                  <div class="task-type-detail-example"><strong>Что делает учащийся</strong><p id="task-type-detail-action">Отмечает подходящий вариант или набор вариантов и отправляет ответ на проверку.</p></div>
+                  <div class="task-type-detail-check"><strong>Как проверяется</strong><p id="task-type-detail-checking">Автоматически: система сравнивает выбранные варианты с ответом, заданным автором.</p></div>
+                  <a href="https://help.stepik.org/article/54741" target="_blank" rel="noopener noreferrer">Описание типа в справке Stepik ↗</a>
+                </aside>
+              </div>
+            </section>
+
+            <section class="content-section">
+              <h2>Как выбрать подходящий тип</h2>
+              <div class="task-type-guidelines">
+                <article><strong>Нужно проверить знание факта</strong><p>Подойдут тест, численный ответ или короткий текст — в зависимости от того, какой результат требуется получить.</p></article>
+                <article><strong>Нужно проверить ход мысли</strong><p>Используй сортировку, сопоставление, формулу или задачу Парсона: учащийся выполняет последовательность действий.</p></article>
+                <article><strong>Нужно проверить практический навык</strong><p>Выбирай программирование, SQL, HTML/CSS или обработку данных, когда важно не только назвать ответ, но и выполнить работу.</p></article>
+              </div>
+              <div class="task-author-note"><strong>Рекомендации авторам</strong><p>Stepik советует связывать задания с учебными целями, избегать двусмысленных формулировок, подбирать сложность под уровень курса и не перегружать урок однотипной практикой.</p></div>
+            </section>
+
+            <div class="source-block">
+              <strong>Официальные источники</strong>
+              <ul>
+                <li><a href="https://help.stepik.org/article/54741" target="_blank" rel="noopener noreferrer">Виды практических задач</a> — список из 18 типов.</li>
+                <li><a href="https://help.stepik.org/article/54796" target="_blank" rel="noopener noreferrer">Практические задания</a> — особенности тестовых и интерактивных задач.</li>
+                <li><a href="https://help.stepik.org/article/54797" target="_blank" rel="noopener noreferrer">Рекомендации по составлению заданий</a>.</li>
+                <li><a href="https://help.stepik.org/article/54798" target="_blank" rel="noopener noreferrer">Дополнительные опции при создании заданий</a>.</li>
+              </ul>
+            </div>
+          </div>
         </article>
       </section>
       <section class="page page-article" id="page-4-2" data-section="4" data-title="Демонстрация примеров заданий" aria-labelledby="title-4-2">

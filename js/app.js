@@ -1187,6 +1187,167 @@
     });
   }
 
+
+  // Page 3.3: filter real course examples by subject area.
+  const courseFilterButtons=Array.from(document.querySelectorAll("[data-course-filter]"));
+  const courseCards=Array.from(document.querySelectorAll("[data-course-topic]"));
+  courseFilterButtons.forEach(button=>{
+    button.addEventListener("click",()=>{
+      const filter=button.dataset.courseFilter;
+      courseFilterButtons.forEach(item=>{
+        const active=item===button;
+        item.classList.toggle("is-active",active);
+        item.setAttribute("aria-pressed",String(active));
+      });
+      courseCards.forEach(card=>{
+        card.hidden=filter!=="all"&&card.dataset.courseTopic!==filter;
+      });
+    });
+  });
+
+  // Page 4.1: filter the official task taxonomy and show details for each type.
+  const taskTypeDetails={
+    test:{
+      group:"Тестовые задачи · 01",title:"Тест",
+      description:"Учащийся выбирает один или несколько вариантов ответа. В тестах можно перемешивать ответы, показывать ограниченную выборку и добавлять подсказки или объяснения.",
+      action:"Отмечает один или несколько вариантов и отправляет ответ.",
+      checking:"Автоматически: система сравнивает выбранный набор с ключом, заданным автором."
+    },
+    sorting:{
+      group:"Тестовые задачи · 02",title:"Сортировка",
+      description:"Учащийся получает список элементов и должен расположить их в заданном порядке. Направление сортировки необходимо явно указать в условии.",
+      action:"Перемещает элементы списка сверху вниз или в обратном направлении.",
+      checking:"Автоматически: сравнивается итоговая последовательность элементов."
+    },
+    matching:{
+      group:"Тестовые задачи · 03",title:"Сопоставление",
+      description:"Задание содержит два списка. Учащийся устанавливает пары между значениями; в отдельных сценариях часть элементов может оставаться без пары.",
+      action:"Соединяет элементы левого и правого столбцов.",
+      checking:"Автоматически: проверяются заданные автором пары."
+    },
+    table:{
+      group:"Тестовые задачи · 04",title:"Табличная задача",
+      description:"Ответ представлен в виде таблицы, в которой нужно отметить правильные ячейки. Stepik поддерживает одиночный и множественный выбор.",
+      action:"Выбирает нужные ячейки на пересечении строк и столбцов.",
+      checking:"Автоматически: система проверяет отмеченные ячейки."
+    },
+    blanks:{
+      group:"Задачи с вводом ответа · 05",title:"Пропуски",
+      description:"В предложении, тексте или другом учебном материале оставлены пустые места. Ответ можно вводить с клавиатуры или выбирать из списка.",
+      action:"Заполняет одно или несколько пропущенных значений.",
+      checking:"Обычно автоматически: введённое значение сравнивается с допустимым ответом."
+    },
+    numeric:{
+      group:"Задачи с вводом ответа · 06",title:"Численная задача",
+      description:"Нужно вычислить или определить числовое значение. Автор может задать допустимую погрешность, поэтому ответ не всегда должен совпадать посимвольно.",
+      action:"Вводит число в поле ответа.",
+      checking:"Автоматически: числовое значение сравнивается с эталоном с учётом заданной погрешности."
+    },
+    formula:{
+      group:"Задачи с вводом ответа · 07",title:"Математическая формула",
+      description:"Учащийся записывает математическое выражение. Проверка учитывает эквивалентность формул, а не только совпадение текста.",
+      action:"Вводит формулу в предусмотренном формате.",
+      checking:"Автоматически: проверяется математическая эквивалентность введённой формулы."
+    },
+    random:{
+      group:"Задачи с вводом ответа · 08",title:"Случайная генерация условия",
+      description:"Условие содержит параметры, которые могут меняться при новой генерации задания. Благодаря этому у разных попыток могут быть разные числовые данные.",
+      action:"Решает полученный вариант с его текущими исходными значениями.",
+      checking:"Автоматически: ответ проверяется относительно параметров именно этого варианта."
+    },
+    text:{
+      group:"Задачи с вводом ответа · 09",title:"Текстовая задача",
+      description:"Ожидается текстовая строка. Для проверки автор может задать шаблон или дополнительные правила обработки ответа.",
+      action:"Вводит слово, фразу или строку в поле.",
+      checking:"Автоматически по заданному шаблону; для сложных случаев можно использовать проверяющий код."
+    },
+    free:{
+      group:"Задачи с вводом ответа · 10",title:"Свободный ответ",
+      description:"Позволяет отправить развёрнутый текст, эссе или объяснение. Такой ответ не проверяется автоматически по эталонной строке.",
+      action:"Пишет самостоятельный развёрнутый ответ.",
+      checking:"Без автоматической проверки правильности; используется для открытого ответа."
+    },
+    programming:{
+      group:"Интерактивные задачи · 11",title:"Задача на программирование",
+      description:"Учащийся пишет программу на одном из поддерживаемых языков. Решение проверяется на тестовых данных.",
+      action:"Пишет код, запускает решение и отправляет его на проверку.",
+      checking:"Автоматически по тестам; учащийся получает результат проверки."
+    },
+    data:{
+      group:"Интерактивные задачи · 12",title:"Задача на данные",
+      description:"Для решения предоставляется набор данных. Нужно выполнить обработку или анализ в условиях, предусмотренных заданием.",
+      action:"Работает с набором данных и формирует требуемый результат.",
+      checking:"По сценарию задачи и настроенному способу проверки."
+    },
+    sql:{
+      group:"Интерактивные задачи · 13",title:"Задача по SQL",
+      description:"Проверяет умение формировать SQL-запрос для получения или преобразования данных.",
+      action:"Пишет SQL-запрос в редакторе ответа.",
+      checking:"Автоматически: результат запроса сравнивается с ожидаемым результатом."
+    },
+    htmlcss:{
+      group:"Интерактивные задачи · 14",title:"HTML и CSS",
+      description:"Учащийся создаёт структуру HTML-документа и оформляет её с помощью CSS.",
+      action:"Вводит HTML/CSS и проверяет результат отображения.",
+      checking:"Инструментами проверки, настроенными для соответствующего задания."
+    },
+    external:{
+      group:"Интерактивные задачи · 15",title:"External Grader",
+      description:"Решение передаётся внешней проверяющей системе. Этот вариант нужен, когда проверка организована за пределами стандартного обработчика Stepik.",
+      action:"Отправляет решение, которое затем принимает внешний проверяющий сервис.",
+      checking:"Внешней системой, интегрированной с заданием."
+    },
+    lti:{
+      group:"Интерактивные задачи · 16",title:"LTI consumer",
+      description:"Задание использует интеграцию с внешним инструментом по протоколу LTI.",
+      action:"Переходит к связанному учебному инструменту и выполняет действие в нём.",
+      checking:"Через LTI-провайдера, подключённого к учебному сценарию."
+    },
+    parsons:{
+      group:"Интерактивные задачи · 17",title:"Задача Парсона",
+      description:"Вместо написания кода с нуля учащийся получает готовые фрагменты и должен собрать их в корректную программу с правильным порядком и отступами.",
+      action:"Переставляет блоки кода и формирует итоговую последовательность.",
+      checking:"Автоматически: проверяется порядок фрагментов и структура решения."
+    },
+    teacher:{
+      group:"Интерактивные задачи · 18",title:"Оценка преподавателя",
+      description:"Этот шаг предназначен для внесения баллов преподавателем. Учащийся не выполняет его как обычное интерактивное задание.",
+      action:"Учащийся не отправляет ответ; преподаватель фиксирует оценку.",
+      checking:"Вручную преподавателем. Сам шаг не используется учащимися."
+    }
+  };
+  const taskFilters=Array.from(document.querySelectorAll("[data-task-filter]"));
+  const taskCards=Array.from(document.querySelectorAll("[data-task-type]"));
+  function showTaskType(id){
+    const detail=taskTypeDetails[id];if(!detail)return;
+    taskCards.forEach(card=>{
+      const active=card.dataset.taskType===id;
+      card.classList.toggle("is-active",active);
+      card.setAttribute("aria-pressed",String(active));
+    });
+    document.getElementById("task-type-detail-group").textContent=detail.group;
+    document.getElementById("task-type-detail-title").textContent=detail.title;
+    document.getElementById("task-type-detail-description").textContent=detail.description;
+    document.getElementById("task-type-detail-action").textContent=detail.action;
+    document.getElementById("task-type-detail-checking").textContent=detail.checking;
+  }
+  taskFilters.forEach(button=>{
+    button.addEventListener("click",()=>{
+      const filter=button.dataset.taskFilter;
+      taskFilters.forEach(item=>{
+        const active=item===button;
+        item.classList.toggle("is-active",active);
+        item.setAttribute("aria-pressed",String(active));
+      });
+      taskCards.forEach(card=>{
+        card.hidden=filter!=="all"&&card.dataset.taskGroup!==filter;
+      });
+      const firstVisible=taskCards.find(card=>!card.hidden);
+      if(firstVisible)showTaskType(firstVisible.dataset.taskType);
+    });
+  });
+  taskCards.forEach(card=>card.addEventListener("click",()=>showTaskType(card.dataset.taskType)));
+
   renderQuestion();
   renderPage(getHashPage());
 })();
